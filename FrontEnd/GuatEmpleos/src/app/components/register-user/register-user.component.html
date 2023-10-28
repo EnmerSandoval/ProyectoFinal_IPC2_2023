@@ -1,0 +1,48 @@
+<form class="form" (ngSubmit)="onSubmit()" #registerForm="ngForm">
+    <p class="title">Registrar</p>
+    <p class="message">Ingrese al sistema para poder acceder a todas las funcionalidades. </p>
+    <span *ngIf="error" class="text-danger">No se pudo registrar intente nuevamente</span>
+    <label>
+        <input [(ngModel)]="user.cui" name="cui" class="input" type="number" placeholder="" required="">
+        <span>Cui</span>
+    </label>
+    <label>
+        <input [(ngModel)]="user.name" name="name" class="input" type="text" placeholder="" required="">
+        <span>Nombre</span>
+    </label>
+    <label>
+        <input [(ngModel)]="user.username" name="username" class="input" type="text" placeholder="" required="">
+        <span>username</span>
+    </label>
+
+    <label>
+        <input [(ngModel)]="user.address" name="address" class="input" type="text" placeholder="" required="">
+        <span>Address</span>
+    </label>
+    <label>
+        <input [(ngModel)]="user.email" name="email" class="input" type="email" placeholder="" required="">
+        <span>Email</span>
+    </label>
+    <label>
+        <input [(ngModel)]="user.birth" name="birth" class="input" type="date" placeholder="" required="">
+        <span>Fecha de nacimiento</span>
+    </label>
+    <label>
+        <select [(ngModel)]="user.typeUser" name="typeUser" class="input" required="">
+            <option value="2">Empleador</option>
+            <option value="3">Applicante</option>
+        </select>
+        <span>Tipo de usuario</span>
+    </label>
+    <label>
+        <input [(ngModel)]="user.phoneNumber" name="phoneNumber" class="input" type="number" placeholder="" required="">
+        <span>Phone number</span>
+    </label>
+    <label>
+        <input [(ngModel)]="user.password" name="password" class="input" type="password" placeholder="" required="">
+        <span>Password</span>
+    </label>
+    <span *ngIf="register" class="text-success">El usuario se ha registrado correctamente</span>
+    <button class="submit">Submit</button>
+    <p class="signin">Ya tienes una cuenta? <a routerLink="/login">Inicia Sesion</a> </p>
+</form>
