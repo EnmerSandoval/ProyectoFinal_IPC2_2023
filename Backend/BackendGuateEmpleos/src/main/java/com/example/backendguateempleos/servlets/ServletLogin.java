@@ -2,6 +2,8 @@ package com.example.backendguateempleos.servlets;
 
 import com.example.backendguateempleos.controller.UserService;
 import com.example.backendguateempleos.model.Auxiliary;
+import com.example.backendguateempleos.model.AuxiliaryMethods;
+import com.example.backendguateempleos.model.SendEmail;
 import com.example.backendguateempleos.model.User;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -16,11 +18,13 @@ public class ServletLogin extends HttpServlet {
 
     private final UserService userService = new UserService();
     private final Auxiliary<User> auxiliary = new Auxiliary<>();
+    private final AuxiliaryMethods auxiliaryMethods = new AuxiliaryMethods();
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         var user = auxiliary.read(req, User.class);
-        var passwordEncrypted = auxiliary.encrypt(user.getPassword());
+        System.out.println(user.getUsername());
+        var passwordEncrypted = auxiliaryMethods.encrypt(user.getPassword());
         var userLogin = userService.loginService(user.getUsername(), passwordEncrypted);
         if (userLogin.isPresent()){
             System.out.println("SI ingreso");

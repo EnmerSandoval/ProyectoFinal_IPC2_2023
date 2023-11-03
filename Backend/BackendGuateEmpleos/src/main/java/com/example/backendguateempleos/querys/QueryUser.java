@@ -2,6 +2,7 @@ package com.example.backendguateempleos.querys;
 
 import com.example.backendguateempleos.db.ConnectionDB;
 import com.example.backendguateempleos.model.Auxiliary;
+import com.example.backendguateempleos.model.AuxiliaryMethods;
 import com.example.backendguateempleos.model.TypeUser;
 import com.example.backendguateempleos.model.User;
 
@@ -17,6 +18,7 @@ public class QueryUser {
 
     private final Connection connection;
     private final Auxiliary<User> auxiliary = new Auxiliary<>();
+    private final AuxiliaryMethods auxiliaryMethods = new AuxiliaryMethods();
 
     public QueryUser(){
         this.connection = ConnectionDB.obtainConnection();
@@ -55,7 +57,7 @@ public class QueryUser {
     }
 
     public boolean registerUser(User user){
-        String passwordEncrypted = auxiliary.encrypt(user.getPassword());
+        String passwordEncrypted = auxiliaryMethods.encrypt(user.getPassword());
         String query = "INSERT INTO user (codUser, cui, name, username, password, address, email, birthdate, typeOfUser) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         if (verifyUsername(user)){
             System.out.println("NO SE PUEDE REGISTRAR");
@@ -68,7 +70,7 @@ public class QueryUser {
                 preparedStatement.setString(5, passwordEncrypted);
                 preparedStatement.setString(6, user.getAddress());
                 preparedStatement.setString(7, user.getEmail());
-                preparedStatement.setDate(8, auxiliary.convertStringToSQLDate(user.getBirth()));
+                preparedStatement.setDate(8, user.getBirth());
                 preparedStatement.setInt(9, user.getTypeUser());
                 preparedStatement.executeUpdate();
                 System.out.println("Se registro el usuario");
@@ -150,7 +152,7 @@ public class QueryUser {
         var password = resultSet.getString("password");
         var address = resultSet.getString("address");
         var email = resultSet.getString("email");
-        var birthdate = resultSet.getString("birthdate");
+        var birthdate = resultSet.getDate("birthdate");
         var typeUser = resultSet.getInt("typeOfUser");
          User user = User.builder().codUser(codUser)
                 .cui(cui)
@@ -178,6 +180,36 @@ public class QueryUser {
             e.printStackTrace();
         }
         return false;
+    }
+
+    public boolean verifyEmail(User user){
+        String query = "SELECT * FROM user WHERE email = ?";
+        try (var preparedStatement = connection.prepareStatement(query)){
+            preparedStatement.setString(1, user.getEmail());
+            try (var resultSet = preparedStatement.executeQuery()){
+                while (resultSet.next()){
+                    return true;
+                }
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return false;
+    }
+    
+    public Optional<User> returnUserByEmail(User user){
+        String query = "SELECT * FROM user WHERE email = ?";
+        try (var preparedStatement = connection.prepareStatement(query)){
+            preparedStatement.setString(1, user.getEmail());
+            try (var resultSet = preparedStatement.executeQuery()){
+                while (resultSet.next()){
+                    user = createUser(resultSet);
+                }
+            }
+        } catch (SQLException e){
+            System.out.println("error en el return de user: " + e);
+        }
+        return Optional.ofNullable(user);
     }
 
 }

@@ -19,14 +19,17 @@ public class RegisterServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        System.out.println("hola amigos");
         var user = auxiliary.read(req, User.class);
+        System.out.println(user.getName());
+        System.out.println(user.getBirth());
+        System.out.println(user.getTypeUser());
         var userRegister = userService.registerUserService(user);
-            if (userRegister){
+           if (userRegister){
                 resp.setStatus(HttpServletResponse.SC_OK);
             } else {
                 resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
             }
-
 
     }
 }

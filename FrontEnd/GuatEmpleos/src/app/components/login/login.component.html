@@ -4,7 +4,7 @@
     <form action="" class="form" id="" (ngSubmit)="onSubmit()" #loginForm="ngForm">
       <input [(ngModel)]="user.username" class="input" type="text" name="username" id="username" placeholder="username">
       <input [(ngModel)]="user.password" required="" class="input" type="password" name="password" id="password" placeholder="Password">
-      <span class="forgot-password"><a href="#">Olvidaste tu contrasena?</a></span>
+      <span class="forgot-password"><a routerLink="/forgot-password">Olvidaste tu contrasena?</a></span>
       <span class="register"><a routerLink="/register-user">Registrar</a></span>
       <input class="login-button" type="submit" value="Sign In">
     </form>

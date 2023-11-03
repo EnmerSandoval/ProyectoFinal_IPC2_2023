@@ -9,5 +9,5 @@ export class User {
     address!: string;
     email!: string;
     phoneNumber!: number;
-    birth !: string;
+    birth!: Date;
 }

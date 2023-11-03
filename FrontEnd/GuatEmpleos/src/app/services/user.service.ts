@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { User } from '../model/User';
+import { Token } from '../model/token';
 import { Observable } from 'rxjs';
 
 
@@ -16,7 +17,19 @@ export class UserService {
   }
 
   registerUser(user : User) {
-    console.log("Se llego a register");
     return this.http.post<User>(`${this.url}/registerServlet`, user);
+  }
+
+  forgotPassword(user : User) {
+    const params = new HttpParams().set('email', user.email).set('forgotPassword', '1');
+    return this.http.get(`${this.url}/forgotPassword`, { params, responseType: 'text' });
+  }
+
+  verifyToken(token : Token){
+    return this.http.post<Token>(`${this.url}/forgotPassword`, token);
+  }
+
+  logOut() {
+    localStorage.removeItem('user');
   }
 }

@@ -23,6 +23,9 @@ public class UserService {
         return queryUser.registerUser(user);
     }
 
+    public boolean verifyEmail(User user){
+        return queryUser.verifyEmail(user);
+    }
     public boolean registerPhoneNumberService(User user){
         return queryUser.insertPhoneNumber(user);
     }

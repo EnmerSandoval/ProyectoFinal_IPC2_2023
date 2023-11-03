@@ -1,11 +1,16 @@
 package com.example.backendguateempleos.model;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonDeserializer;
 import com.google.protobuf.TextFormat;
 import jakarta.servlet.http.HttpServletResponse;
 
+import java.io.BufferedReader;
+import java.lang.reflect.Type;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -31,14 +36,32 @@ public class Auxiliary<T> {
         new Auxiliary<List<T>>().send(response, list);
     }
 
-    public T read(HttpServletRequest request, Class<T> classT) throws IOException {
-        var buffer = new StringBuilder();
-        var reader = request.getReader();
+    public <T> T read(HttpServletRequest request, Class<T> classT) throws IOException {
+        StringBuilder buffer = new StringBuilder();
+        BufferedReader reader = request.getReader();
         String line;
-        while ((line = reader.readLine()) != null) buffer.append(line);
+        while ((line = reader.readLine()) != null) {
+            buffer.append(line);
+        }
         String payload = buffer.toString();
+        System.out.println("Estamos desde el read: " + payload);
+
+        Gson gson = new GsonBuilder()
+                .registerTypeAdapter(Date.class, (JsonDeserializer<Date>) (json, typeOfT, context) -> {
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                    try {
+                        java.util.Date utilDate = sdf.parse(json.getAsString());
+                        return new Date(utilDate.getTime());
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                        return null;
+                    }
+                })
+                .create();
+
         return gson.fromJson(payload, classT);
     }
+
 
     public T getRequest(HttpServletRequest request, String parameterName, Class<T> classT) throws IOException {
         String jsonData = request.getParameter(parameterName);
@@ -53,22 +76,7 @@ public class Auxiliary<T> {
         return buffer.toString();
     }
 
-    public String encrypt (String seasonedPassword){
-        MessageDigest md = null;
-        try {
-            md = MessageDigest.getInstance("SHA-256");
-        }
-        catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-            return "";
-        }
-        byte[] hash = md.digest(seasonedPassword.getBytes());
-        StringBuilder buffer = new StringBuilder();
-        for(byte b : hash) {
-            buffer.append(String.format("%02x", b));
-        }
-        return buffer.toString();
-    }
+
 
     public java.sql.Date convertStringToSQLDate(String dateString) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
