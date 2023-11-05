@@ -6,6 +6,7 @@ import { ForgotPasswordComponent } from './components/forgot-password/forgot-pas
 import { MainHouseComponent } from './components/main-house/main-house.component';
 import { RegisterTokenComponent } from './components/register-token/register-token.component';
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
+import { HomeGuestComponent } from './components/Guest/home-guest/home-guest.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/main-house', pathMatch: 'full' },
@@ -15,7 +16,7 @@ const routes: Routes = [
   { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: 'register-token', component: RegisterTokenComponent },
   { path: 'change-password', component: ChangePasswordComponent },
-
+  { path: 'home-guest', component: HomeGuestComponent },
 
 
 ];

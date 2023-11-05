@@ -1,1 +1,70 @@
-<p>home-guest works!</p>
+<nav class="navbar navbar-expand-lg navbar-dark bg-black">
+    <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#navbarExample01"
+            aria-controls="navbarExample01" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarExample01">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/login">Iniciar Sesion</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-3" id="imagenLeft">
+                <img src="assets/anuncio2.jpeg" class="img-fluid mb-3" alt="Anuncio 1">
+            </div>
+            <div class="col-lg-9" id="divGeneral">
+                <h1 class="display-4">GuatEmpleos</h1>
+                <section class="page-section" id="actions">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Número de Oferta</th>
+                                            <th>Empresa</th>
+                                            <th>Categoría</th>
+                                            <th>Nombre de la Oferta</th>
+                                            <th>Descripción</th>
+                                            <th>Modalidad</th>
+                                            <th>Salario</th>
+                                            <th>Fecha de Publicación</th>
+                                            <th>Detalles</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let job of jobsList">
+                                            <td>{{ job.numberJobOffert }}</td>
+                                            <td><a [href]="'enlace_empresa' + job.cuiEmployer">{{ job.nameEmployer }}</a></td>
+                                            <td>{{ job.category }}</td>
+                                            <td>{{ job.nameOfJobOffert }}</td>
+                                            <td>{{ job.description }}</td>
+                                            <td>{{ job.modality }}</td>
+                                            <td>{{ "Q." + job.salary }}</td>
+                                            <td>{{ job.publicationDate | date: 'dd-MM-yyyy' }}</td>
+                                            <td>{{ job.details}}</td>
+                                            <td><button class="btn btn-primary" routerLink="/login">Postularme</button></td>
+                                        </tr>
+                                    </tbody>                    
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+</div>
+
+<footer>
+    <div class="container">
+        <img src="assets/anuncio3.jpeg" class="img-fluid" alt="Anuncio 3">
+    </div>
+</footer>
