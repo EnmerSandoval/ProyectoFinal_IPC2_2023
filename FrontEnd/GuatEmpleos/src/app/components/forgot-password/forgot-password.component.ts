@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { User } from 'src/app/model/User';
 import { UserService } from 'src/app/services/user.service';
 import { Router } from '@angular/router';
+import { Token } from 'src/app/model/token';
 import { Form, FormGroup } from '@angular/forms';
 
 @Component({
@@ -25,9 +26,8 @@ export class ForgotPasswordComponent {
       this.errorCaptcha = false;
       this.userService.forgotPassword(this.user).subscribe(user => {
         this.error = false;    
-          console.log("Se entro al if");
           this.emailValid = true;
-          this.limpiar();
+          this.clean();
       }, error => {
         console.log(this.error);
         this.error = true;
@@ -37,13 +37,13 @@ export class ForgotPasswordComponent {
     }
   }
 
-  limpiar(){
+  clean(){
     this.user.email = '';
     this.captcha = false;
   }
 
   goBack(){
-   // this.router.navigate(['/main-house']);
+    this.router.navigate(['/main-house']);
   }
 
 }

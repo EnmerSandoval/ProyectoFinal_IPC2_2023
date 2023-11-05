@@ -36,6 +36,37 @@ public class QueryTokens {
         return false;
     }
 
+    public boolean verifyTokenByState(String token){
+        String query = "SELECT * FROM tokens WHERE token = ? AND state = ?";
+        try (var preparedStatement = connection.prepareStatement(query)){
+            preparedStatement.setString(1, token);
+            preparedStatement.setBoolean(2, true);
+            try (var resultSet = preparedStatement.executeQuery()){
+                while (resultSet.next()){
+                    return true;
+                }
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public Date verifyTokenDate(String token){
+        String query = "SELECT * FROM tokens WHERE token = ?";
+        try (var preparedStatement = connection.prepareStatement(query)){
+            preparedStatement.setString(1, token);
+            try (var resultSet = preparedStatement.executeQuery()){
+                while (resultSet.next()){
+                  return resultSet.getDate("tokenExpirationDate");
+                }
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public boolean verifyExistTokenInTokens(String token){
         String query = "SELECT * FROM tokens WHERE token = ? ";
         try (var preparedStatement = connection.prepareStatement(query)){
@@ -68,9 +99,6 @@ public class QueryTokens {
         return false;
     }
 
-    public boolean verifyDateToken(){
-        return false;
-    }
 
     public boolean verifyExistTokenInTokensHistory(String token){
         String query = "SELECT * FROM tokensHistory WHERE token = ?";
@@ -134,6 +162,19 @@ public class QueryTokens {
         }
     }
 
+    public boolean switchState(String token){
+        String query = "UPDATE tokens SET state = ? WHERE token = ?";
+        try(var preparedStatement = connection.prepareStatement(query)){
+            preparedStatement.setBoolean(1, false);
+            preparedStatement.setString(2, token);
+            preparedStatement.executeUpdate();
+            return true;
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+        return false;
+    }
+
     public Optional<Token> verifyTokenEntered(String token){
         String query = "SELECT * FROM tokens WHERE token = ?";
         Token tokenReturn = new Token();
@@ -141,9 +182,12 @@ public class QueryTokens {
             preparedStatement.setString(1, token);
             try(var resultSet = preparedStatement.executeQuery()){
                 while (resultSet.next()){
-                    tokenReturn.setTokenExpirationDate(resultSet.getDate("tokenExpirationDate"));
-                    tokenReturn.setState(resultSet.getBoolean("state"));
-                    tokenReturn.setCuiUser(resultSet.getInt("cuiUser"));
+                    var tokenExpirationDate = resultSet.getDate("tokenExpirationDate");
+                    var state = resultSet.getBoolean("state");
+                    var cuiUser = resultSet.getInt("cuiUser");
+                    tokenReturn = Token.builder().cuiUser(cuiUser)
+                            .tokenExpirationDate(tokenExpirationDate)
+                            .state(state).build();
                 }
             }
         }catch (SQLException e){

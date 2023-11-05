@@ -3,6 +3,7 @@ import { Token } from '../../model/token';
 import { User } from 'src/app/model/User';
 import { UserService } from 'src/app/services/user.service';
 import { Router } from '@angular/router';
+import { ChangePasswordComponent } from '../change-password/change-password.component';
 
 @Component({
   selector: 'app-register-token',
@@ -10,7 +11,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./register-token.component.css']
 })
 export class RegisterTokenComponent {
-  token!: Token;
+  token! : Token;
   user!: User;
   error: boolean = false;
   captcha : boolean = false;
@@ -22,16 +23,20 @@ export class RegisterTokenComponent {
   }
    
   onSubmit() {
-    this.token.tokenDate = new Date();
-    this.token.tokenDate.setHours(0,0,0,0);
-    if(this.captcha){
+    if (this.captcha) {
       this.errorCaptcha = false;
       this.token.tokenDate = new Date();
-      console.log(this.token.tokenDate);
+      this.token.tokenDate = new Date(this.token.tokenDate.getTime() - this.token.tokenDate.getTimezoneOffset() * 60000);
       this.UserService.verifyToken(this.token).subscribe(token => {
-        this.error = false;
-        this.validateToken = true;
-        this.limpiar();
+        if (token) {
+          this.error = false;
+          this.validateToken = true;
+          this.clean();
+          localStorage.setItem('token', JSON.stringify(token));
+          this.router.navigate(['/change-password']);
+        } else {
+          this.error = true;
+        }
       }, error => {
         this.error = true;
       });
@@ -39,10 +44,15 @@ export class RegisterTokenComponent {
       this.errorCaptcha = true;
     }
   }
+  
 
-  limpiar(){
-    this.token.token = '';
-    this.captcha = false;
+  clean(){
+    if (this.token) {
+      this.token.token = '';
+      this.captcha = false;
+    }
   }
+  
+
   
 }

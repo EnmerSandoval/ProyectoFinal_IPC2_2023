@@ -20,7 +20,6 @@ export class RegisterUserComponent {
 
   onSubmit(){    
    this.userService.registerUser(this.user).subscribe(user => {
-      console.log("Se entro al registro");
       if(user){
         localStorage.setItem('user', JSON.stringify(user))
         this.router.navigate(['/login']);

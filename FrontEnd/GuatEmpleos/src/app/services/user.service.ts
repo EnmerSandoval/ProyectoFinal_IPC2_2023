@@ -29,6 +29,10 @@ export class UserService {
     return this.http.post<Token>(`${this.url}/forgotPassword`, token);
   }
 
+  changePassword(user : User){
+    return this.http.post<User>(`${this.url}/changePasswordServlet`, user);
+  }
+
   logOut() {
     localStorage.removeItem('user');
   }

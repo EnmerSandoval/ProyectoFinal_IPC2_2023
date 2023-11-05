@@ -149,7 +149,6 @@ public class QueryUser {
         var cui = resultSet.getInt("cui");
         var name = resultSet.getString("name");
         var username = resultSet.getString("username");
-        var password = resultSet.getString("password");
         var address = resultSet.getString("address");
         var email = resultSet.getString("email");
         var birthdate = resultSet.getDate("birthdate");
@@ -158,7 +157,6 @@ public class QueryUser {
                 .cui(cui)
                 .name(name)
                 .username(username)
-                .password(password)
                 .address(address)
                 .email(email)
                 .birth(birthdate)
@@ -210,6 +208,19 @@ public class QueryUser {
             System.out.println("error en el return de user: " + e);
         }
         return Optional.ofNullable(user);
+    }
+
+    public boolean updatePassword(User user){
+        String query = "UPDATE user SET password = ? WHERE cui = ?";
+        try (var preparedStatement = connection.prepareStatement(query)){
+            preparedStatement.setString(1, user.getPassword());
+            preparedStatement.setInt(2, user.getCui());
+            preparedStatement.executeUpdate();
+            return true;
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+        return false;
     }
 
 }

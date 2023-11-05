@@ -1,5 +1,6 @@
 package com.example.backendguateempleos.servlets;
 
+import com.example.backendguateempleos.controller.TokenService;
 import com.example.backendguateempleos.controller.UserService;
 import com.example.backendguateempleos.model.*;
 import com.example.backendguateempleos.querys.QueryTokens;
@@ -10,6 +11,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Optional;
 
 @WebServlet(name="ForgotPassword", urlPatterns="/forgotPassword")
 public class ForgotPassword extends HttpServlet{
@@ -21,6 +23,7 @@ public class ForgotPassword extends HttpServlet{
     private final Auxiliary<User> auxiliary = new Auxiliary<User>();
     private final Auxiliary<Token> tokenAuxiliary = new Auxiliary<>();
     private final UserService userService = new UserService();
+    private final TokenService tokenService = new TokenService();
     private final AuxiliaryMethodsSendEmail auxiliaryMethodsSendEmail = new AuxiliaryMethodsSendEmail();
 
     @Override
@@ -41,10 +44,26 @@ public class ForgotPassword extends HttpServlet{
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        System.out.println("LLEGAMOS AL POST");
         var token = tokenAuxiliary.read(req, Token.class);
-        System.out.println(token.getTokenDate());
-        System.out.println(token.getToken());
+        if (queryTokens.verifyTokenDate(token.getToken()) != null){
+            int comparsion = token.getTokenDate().compareTo(queryTokens.verifyTokenDate(token.getToken()));
+            if (comparsion < 0){
+                if (queryTokens.verifyTokenByState(token.getToken())){
+                    if (queryTokens.switchState(token.getToken())){
+                        var tokenResend = tokenService.tokenInsert(token.getToken());
+                        if (tokenResend.isPresent()){
+
+                            resp.setStatus(HttpServletResponse.SC_OK);
+                            tokenAuxiliary.send(resp, tokenResend.get());
+                        }
+                    }
+                }
+            } else {
+                resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            }
+        } else {
+            resp.setStatus(HttpServletResponse.SC_NOT_ACCEPTABLE);
+        }
     }
 
     private void generateToken(HttpServletRequest req, HttpServletResponse resp, User user){

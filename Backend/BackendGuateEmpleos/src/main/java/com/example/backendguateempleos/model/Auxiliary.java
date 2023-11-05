@@ -44,8 +44,6 @@ public class Auxiliary<T> {
             buffer.append(line);
         }
         String payload = buffer.toString();
-        System.out.println("Estamos desde el read: " + payload);
-
         Gson gson = new GsonBuilder()
                 .registerTypeAdapter(Date.class, (JsonDeserializer<Date>) (json, typeOfT, context) -> {
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -58,7 +56,6 @@ public class Auxiliary<T> {
                     }
                 })
                 .create();
-
         return gson.fromJson(payload, classT);
     }
 
