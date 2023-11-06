@@ -1,6 +1,8 @@
 package com.example.backendguateempleos.querys;
 
 import com.example.backendguateempleos.db.ConnectionDB;
+import com.example.backendguateempleos.model.Card;
+import com.example.backendguateempleos.model.Employer;
 import com.example.backendguateempleos.model.Job;
 
 import java.sql.Date;
@@ -45,4 +47,32 @@ public class QueryEmployer {
         return jobOffers;
     }
 
+    public boolean insertEmployerDescription(Employer employer){
+        String query = "INSERT INTO employer (cuiEmployer, mission, vision) VALUES ( ?, ?, ?)";
+        try (var preparedStatement = connection.prepareStatement(query)){
+            preparedStatement.setInt(1, employer.getCui());
+            preparedStatement.setString(2, employer.getMission());
+            preparedStatement.setString(3, employer.getVision());
+            preparedStatement.executeUpdate();
+            return true;
+        } catch (SQLException e){
+            System.out.println("Error in insert employer description: " + e);
+        }
+        return false;
+    }
+
+    public boolean insertCardEmployer(Card card) {
+        String query = "INSERT INTO chargeCard (numberCard, nameChargeCard, cuiEmployer, cvv) VALUES ( ?, ?, ?, ?)";
+        try (var preparedStatement = connection.prepareStatement(query)){
+            preparedStatement.setInt(1, card.getNumberCard());
+            preparedStatement.setString(2, card.getNameChargeCard());
+            preparedStatement.setInt(3, card.getCuiEmployer());
+            preparedStatement.setInt(4, card.getCvv());
+            preparedStatement.executeUpdate();
+            return true;
+        }catch (SQLException e){
+            System.out.println("Error in insert card employer: " + e);
+        }
+        return false;
+    }
 }

@@ -14,6 +14,7 @@ import { HomeGuestComponent } from './components/Guest/home-guest/home-guest.com
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
 import { ViewEmployerComponent } from './components/Guest/view-employer/view-employer.component';
 import { DescriptionEmployerComponent } from './components/Employer/description-employer/description-employer.component';
+import { RegiterCardComponent } from './components/Employer/regster-card/regiter-card.component';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { DescriptionEmployerComponent } from './components/Employer/description-
     HomeGuestComponent,
     ChangePasswordComponent,
     ViewEmployerComponent,
-    DescriptionEmployerComponent
+    DescriptionEmployerComponent,
+    RegiterCardComponent
   ],
   imports: [
     BrowserModule,

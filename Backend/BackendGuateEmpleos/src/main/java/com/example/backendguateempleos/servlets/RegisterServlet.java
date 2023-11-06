@@ -19,7 +19,6 @@ public class RegisterServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        System.out.println("hola amigos");
         var user = auxiliary.read(req, User.class);
         System.out.println(user.getName());
         System.out.println(user.getBirth());

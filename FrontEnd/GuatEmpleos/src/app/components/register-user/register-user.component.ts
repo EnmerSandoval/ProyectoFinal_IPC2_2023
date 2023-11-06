@@ -2,7 +2,6 @@ import { Component } from '@angular/core';;
 import { User } from 'src/app/model/User';
 import { UserService } from 'src/app/services/user.service';
 import { Router } from '@angular/router';
-import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-register-user',
@@ -21,7 +20,7 @@ export class RegisterUserComponent {
   onSubmit(){    
    this.userService.registerUser(this.user).subscribe(user => {
         console.log(this.user.typeUser);
-        localStorage.setItem('user', JSON.stringify(user))
+        localStorage.setItem('user', JSON.stringify(this.user));
         this.register = true;
         this.redirect();
     }, error => {

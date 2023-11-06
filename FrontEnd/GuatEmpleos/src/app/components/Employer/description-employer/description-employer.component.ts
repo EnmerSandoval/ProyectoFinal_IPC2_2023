@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Employer } from 'src/app/model/Employer';
 import { EmployerService } from 'src/app/services/employer.service';
+import { User } from 'src/app/model/User';
 import { Router } from '@angular/router';
 
 @Component({
@@ -9,25 +10,33 @@ import { Router } from '@angular/router';
   styleUrls: ['./description-employer.component.css']
 })
 export class DescriptionEmployerComponent {
-  error : boolean = false;
-  employer! : Employer;
+  error: boolean = false;
+  employer!: Employer;
+  user!: User;
 
   constructor(private employerService: EmployerService, private router: Router) {
     this.employer = new Employer();
   }
 
-  onSubmit(){
-    this.employerService.descriptionEmployer(this.employer).subscribe(employer =>{
-      if(employer) {
-        this.redirect();
-      }
+  ngOnInit() {
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      this.user = JSON.parse(storedUser);
+    }
+  }
+
+  onSubmit() {
+    this.employer.cui = this.user.cui;
+    this.employerService.descriptionEmployer(this.employer).subscribe(employer => {
+      console.log("Se ha registrado");
+      this.error = false;
+      this.router.navigate(['/employer/regiterCard']);
     }, error => {
       console.log(this.error);
       this.error = true;
     });
   }
 
-  redirect(){
-    //this.router.navigate(['/employer/registerCard']);
-  }
+  
+  
 }
