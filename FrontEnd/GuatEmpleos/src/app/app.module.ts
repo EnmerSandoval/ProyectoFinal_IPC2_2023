@@ -12,6 +12,8 @@ import { MainHouseComponent } from './components/main-house/main-house.component
 import { RegisterTokenComponent } from './components/register-token/register-token.component';
 import { HomeGuestComponent } from './components/Guest/home-guest/home-guest.component';
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
+import { ViewEmployerComponent } from './components/Guest/view-employer/view-employer.component';
+import { DescriptionEmployerComponent } from './components/Employer/description-employer/description-employer.component';
 
 
 @NgModule({
@@ -23,7 +25,9 @@ import { ChangePasswordComponent } from './components/change-password/change-pas
     MainHouseComponent,
     RegisterTokenComponent,
     HomeGuestComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+    ViewEmployerComponent,
+    DescriptionEmployerComponent
   ],
   imports: [
     BrowserModule,

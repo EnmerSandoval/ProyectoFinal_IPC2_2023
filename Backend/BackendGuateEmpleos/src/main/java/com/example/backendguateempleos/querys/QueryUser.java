@@ -3,10 +3,8 @@ package com.example.backendguateempleos.querys;
 import com.example.backendguateempleos.db.ConnectionDB;
 import com.example.backendguateempleos.model.Auxiliary;
 import com.example.backendguateempleos.model.AuxiliaryMethods;
-import com.example.backendguateempleos.model.TypeUser;
 import com.example.backendguateempleos.model.User;
 
-import javax.xml.transform.Result;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;

@@ -35,7 +35,6 @@ public class QueryEmployer {
                             .category(resultSet.getString("categories"))
                             .build();
                     jobOffers.add(job);
-                    System.out.println(job.toString());
                 }
 
             }

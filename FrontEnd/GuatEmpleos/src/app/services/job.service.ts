@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Job } from '../model/Job';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -11,7 +11,8 @@ export class JobService {
 
   constructor(private httpClient : HttpClient) { }
   public getAllJobs(): Observable<Job[]> {
-    return this.httpClient.get<Job[]>(this.url + "/guest/mainGuestServlet");
+    const params = new HttpParams().set('flag', '1');
+    return this.httpClient.get<Job[]>(`${this.url}/guest/mainGuestServlet`, { params});
   }
   
 }

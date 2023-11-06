@@ -20,14 +20,21 @@ export class RegisterUserComponent {
 
   onSubmit(){    
    this.userService.registerUser(this.user).subscribe(user => {
-      if(user){
+        console.log(this.user.typeUser);
         localStorage.setItem('user', JSON.stringify(user))
-        this.router.navigate(['/login']);
         this.register = true;
-      }
+        this.redirect();
     }, error => {
       console.log(this.error);
       this.error = true;
     });
+  }
+
+  redirect(){
+    if (this.user.typeUser == 2) {
+      this.router.navigate(['/employer/description']);
+    } else if(this.user.typeUser == 3){
+      //applicant
+    }
   }
 }

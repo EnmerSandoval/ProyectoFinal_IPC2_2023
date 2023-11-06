@@ -10,16 +10,23 @@ header.masthead {
     background-size: cover;
 }
 
-.navbar{
-    color: white;
+#imagenLeft img {
+    max-width: 100%; 
+    max-height: 800px; 
 }
 
+#advertisementFooter img {
+    max-width: 100%; 
+    max-height: 200px; 
+}
+
+
 #imagenLeft{
-    margin-right: -15px;
+    margin-right: -30px;
 }
 
 #divGeneral{
-    margin-left: -15px;
+    margin-left: -190px;
 }
 
 .row.align-items-center > div:first-child {

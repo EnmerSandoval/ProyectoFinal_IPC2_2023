@@ -11,6 +11,6 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 public class Employer extends User{
     private String mission;
-    private String vission;
+    private String vision;
 
 }
