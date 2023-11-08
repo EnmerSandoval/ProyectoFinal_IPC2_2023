@@ -18,7 +18,6 @@ export class HomeGuestComponent {
           this.jobsList = jobs;
         }
     });
-    
   }
 
 }

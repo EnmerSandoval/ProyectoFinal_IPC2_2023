@@ -22,10 +22,17 @@ export class LoginComponent {
       if (user) {
         console.log("Se entro al if");
         localStorage.setItem('user', JSON.stringify(user));
-        this.router.navigate(['/']);
+        this.redirect(user);
       } 
     }, error => {console.log(this.error);
       this.error = true;
     });
+  }
+
+  redirect(user : User){
+    if(user.typeUser == 1){
+      console.log("Se entro al home-administrator");
+      this.router.navigate(['/home-administrator']);
+    }
   }
 }

@@ -10,10 +10,15 @@ import { HomeGuestComponent } from './components/Guest/home-guest/home-guest.com
 import { DescriptionEmployerComponent } from './components/Employer/description-employer/description-employer.component';
 import { ViewEmployerComponent } from './components/Guest/view-employer/view-employer.component';
 import { RegiterCardComponent } from './components/Employer/regster-card/regiter-card.component';
+import { HomeAdministratorComponent } from './components/Administrator/home-administrator/home-administrator.component';
+import { UnauthorizedComponent } from './components/Errors/unauthorized/unauthorized.component';
+import { AdminAuthGuard } from './guard/AdminAuthGuard';
+import { CategorysComponent } from './components/Administrator/categorys/categorys.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/main-house', pathMatch: 'full' },
   { path: 'main-house', component: MainHouseComponent },
+  { path: 'unauthorized', component: UnauthorizedComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register-user', component: RegisterUserComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
@@ -22,11 +27,22 @@ const routes: Routes = [
   {
     path: 'home-guest', component: HomeGuestComponent,
     children: [
-      {path: 'employer/view', component: ViewEmployerComponent}
+      { path: 'employer/view', component: ViewEmployerComponent }
     ]
   },
+  {
+    path: 'home-administrator',
+    component: HomeAdministratorComponent,
+    canActivate: [AdminAuthGuard],
+    children: [
+        { path: '', redirectTo: 'categorys', pathMatch: 'full' }, 
+        { path: 'categorys', component: CategorysComponent, canActivate: [AdminAuthGuard] }
+      
+    ]
+  },
+
   { path: 'employer/description', component: DescriptionEmployerComponent },
-  { path: 'employer/regiterCard', component: RegiterCardComponent},
+  { path: 'employer/regiterCard', component: RegiterCardComponent },
 
 
 ];

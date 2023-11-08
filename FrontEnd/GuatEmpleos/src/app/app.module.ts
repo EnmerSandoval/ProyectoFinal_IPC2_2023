@@ -15,7 +15,11 @@ import { ChangePasswordComponent } from './components/change-password/change-pas
 import { ViewEmployerComponent } from './components/Guest/view-employer/view-employer.component';
 import { DescriptionEmployerComponent } from './components/Employer/description-employer/description-employer.component';
 import { RegiterCardComponent } from './components/Employer/regster-card/regiter-card.component';
-
+import { HomeAdministratorComponent } from './components/Administrator/home-administrator/home-administrator.component';
+import { AdminAuthGuard } from './guard/AdminAuthGuard';
+import { AuthService } from './services/AuthService';
+import { UnauthorizedComponent } from './components/Errors/unauthorized/unauthorized.component';
+import { CategorysComponent } from './components/Administrator/categorys/categorys.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +33,10 @@ import { RegiterCardComponent } from './components/Employer/regster-card/regiter
     ChangePasswordComponent,
     ViewEmployerComponent,
     DescriptionEmployerComponent,
-    RegiterCardComponent
+    RegiterCardComponent,
+    HomeAdministratorComponent,
+    UnauthorizedComponent,
+    CategorysComponent,
   ],
   imports: [
     BrowserModule,
@@ -38,7 +45,7 @@ import { RegiterCardComponent } from './components/Employer/regster-card/regiter
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [AuthService, AdminAuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

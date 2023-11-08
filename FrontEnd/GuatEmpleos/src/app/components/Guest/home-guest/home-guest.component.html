@@ -32,10 +32,7 @@
                                         <th>Empresa</th>
                                         <th>Categoría</th>
                                         <th>Nombre de la Oferta</th>
-                                        <th>Descripción</th>
-                                        <th>Modalidad</th>
                                         <th>Salario</th>
-                                        <th>Fecha de Publicación</th>
                                         <th>Detalles</th>
                                         <th></th>
                                     </tr>
@@ -47,11 +44,8 @@
                                         </td>
                                         <td>{{ job.category }}</td>
                                         <td>{{ job.nameOfJobOffert }}</td>
-                                        <td>{{ job.description }}</td>
-                                        <td>{{ job.modality }}</td>
                                         <td>{{ "Q." + job.salary }}</td>
-                                        <td>{{ job.publicationDate | date: 'dd-MM-yyyy' }}</td>
-                                        <td>{{ job.details}}</td>
+                                        <td><a >Ver detalles</a></td>
                                         <td><button class="btn btn-primary" routerLink="/login">Postularme</button></td>
                                     </tr>
                                 </tbody>

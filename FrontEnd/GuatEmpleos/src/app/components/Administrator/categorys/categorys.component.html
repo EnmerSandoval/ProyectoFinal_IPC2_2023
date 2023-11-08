@@ -1,0 +1,36 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-black">
+    <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#navbarExample01"
+            aria-controls="navbarExample01" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarExample01">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="">Categorias</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/main-house" (click)="onClickLogout()">Cerrar Session</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav><div>
+    <table class="table">
+        <thead class="table-dark">
+            <tr>
+                <th>CODIGO</th>
+                <th>NOMBRE</th>
+                <th>DESCRIPCION</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let category of categoryList">
+                <td>{{category.numberCategory}}</td>
+                <td>{{category.nameCategory}}</td>
+                <td>{{category.description}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
