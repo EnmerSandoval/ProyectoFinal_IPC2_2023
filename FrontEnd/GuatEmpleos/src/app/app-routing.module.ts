@@ -24,22 +24,11 @@ const routes: Routes = [
   { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: 'register-token', component: RegisterTokenComponent },
   { path: 'change-password', component: ChangePasswordComponent },
-  {
-    path: 'home-guest', component: HomeGuestComponent,
-    children: [
-      { path: 'employer/view', component: ViewEmployerComponent }
-    ]
-  },
-  {
-    path: 'home-administrator',
-    component: HomeAdministratorComponent,
-    canActivate: [AdminAuthGuard],
-    children: [
-        { path: '', redirectTo: 'categorys', pathMatch: 'full' }, 
-        { path: 'categorys', component: CategorysComponent, canActivate: [AdminAuthGuard] }
-      
-    ]
-  },
+  { path: 'home-guest', component: HomeGuestComponent,  },
+  { path: 'employer/view', component: ViewEmployerComponent },
+  { path: 'home-administrator',component: HomeAdministratorComponent,canActivate: [AdminAuthGuard]},
+  { path: 'categorys', component: CategorysComponent, canActivate: [AdminAuthGuard] },
+
 
   { path: 'employer/description', component: DescriptionEmployerComponent },
   { path: 'employer/regiterCard', component: RegiterCardComponent },

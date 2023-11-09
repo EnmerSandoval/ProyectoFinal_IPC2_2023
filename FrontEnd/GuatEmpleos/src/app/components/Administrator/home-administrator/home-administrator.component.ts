@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { Category } from 'src/app/model/Category';
 import { Data } from 'src/app/model/Data';
 import { AdministratorService } from 'src/app/services/administrator.service';
 import { UserService } from 'src/app/services/user.service';
@@ -11,6 +12,7 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class HomeAdministratorComponent {
   data! : Data;
+ 
 
   constructor(private administratorService : AdministratorService, private userService : UserService) { 
     this.data = new Data();

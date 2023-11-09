@@ -9,10 +9,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class QueryAdministrator {
+public class QueryCategories {
     private final Connection connection;
 
-    public QueryAdministrator() {
+    public QueryCategories() {
         this.connection = ConnectionDB.obtainConnection();
     }
 
@@ -82,5 +82,20 @@ public class QueryAdministrator {
             System.out.println("Error in insert Category: " + e);
         }
         return false;
+    }
+
+    public int maxCategory(){
+        String query = "SELECT MAX(numberCategory) AS maxNumberCategory FROM categories";
+        int numero = 0;
+        try (var preparedStatement = connection.prepareStatement(query)){
+            try (var resultSet = preparedStatement.executeQuery()){
+                while (resultSet.next()){
+                    numero = resultSet.getInt("maxNumberCategory");
+                }
+            }
+        } catch (SQLException e){
+            System.out.println("Error in max category please check : " + e);
+        }
+        return numero;
     }
 }

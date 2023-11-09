@@ -20,7 +20,7 @@ public class QueryEmployer {
     }
 
     public List<Job> publishedWorks(){
-        String query = " SELECT jo.numberJobOffert, u.name AS userName, jo.nameOfJobOffert AS jobName, jo.description, jo.modality, jo.salary, jo.publicationDate, jo.details, c.nameCategorie AS categories FROM jobOffert jo INNER JOIN user u ON jo.cuiEmployer = u.cui LEFT JOIN categories c ON jo.numberCategorie = c.numberCategory";
+        String query = " SELECT jo.numberJobOffert, u.name AS userName, jo.nameOfJobOffert AS jobName, jo.description, jo.modality, jo.salary, jo.publicationDate, jo.details, c.nameCategory AS categories FROM jobOffert jo INNER JOIN user u ON jo.cuiEmployer = u.cui LEFT JOIN categories c ON jo.numberCategorie = c.numberCategory";
         List<Job> jobOffers = new ArrayList<>();
         try (var preparedStatement = connection.prepareStatement(query)){
             try(var resultSet = preparedStatement.executeQuery()){

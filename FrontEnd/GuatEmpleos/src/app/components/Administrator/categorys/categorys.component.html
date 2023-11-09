@@ -15,7 +15,10 @@
             </ul>
         </div>
     </div>
-</nav><div>
+</nav>
+<div>
+    <button class="btn btn-primary" (click)="showModal()"> + Crear nueva Categoria</button>
+    <br><br>
     <table class="table">
         <thead class="table-dark">
             <tr>
@@ -30,7 +33,33 @@
                 <td>{{category.numberCategory}}</td>
                 <td>{{category.nameCategory}}</td>
                 <td>{{category.description}}</td>
+                <td><button class="btn btn-primary">Editar</button></td>
             </tr>
         </tbody>
     </table>
+</div>
+<div class="modal fade" id="createCategory" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Crear Categoria</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+        <form>
+            <div class="form-group">
+                <label for="valueInput">Nombre de la categoria:</label>
+                <input [(ngModel)]="category.nameCategory" type="text" class="form-control" id="valueInput"  name="valueInput">
+            </div>
+            <div class="form-group">
+                <label for="descriptionInput">Descripcion:</label>
+                <input [(ngModel)]="category.description" type="text" class="form-control" id="descriptionInput"  name="descriptionInput">
+            </div>
+        </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary" (click)="createCategory(category)">Crear</button>
+        </div>
+    </div>
+    </div>
 </div>

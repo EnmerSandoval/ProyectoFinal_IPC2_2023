@@ -21,7 +21,10 @@ export class AdministratorService {
   }
 
   public insertCategories(category : Category): Observable<Category[]> {
-    const params = new HttpParams().set('flag', '2').set('category', JSON.stringify(category));
+    console.log("inser category" + category.nameCategory);
+    const params = new HttpParams().set('flag', '2')
+    .set('nameCategory', category.nameCategory)
+    .set('description', category.description);
     return this.httpClient.get<Category[]>(`${this.url}/admin/administratorDataServlet`, {params});
   }
 
@@ -34,4 +37,5 @@ export class AdministratorService {
     const params = new HttpParams().set('flag', '4').set('category', JSON.stringify(category));
     return this.httpClient.get<Category[]>(`${this.url}/admin/administratorDataServlet`, {params});
   }
+  
 }

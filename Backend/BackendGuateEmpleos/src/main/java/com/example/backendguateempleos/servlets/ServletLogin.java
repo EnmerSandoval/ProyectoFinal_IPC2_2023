@@ -23,11 +23,9 @@ public class ServletLogin extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         var user = auxiliary.read(req, User.class);
-        System.out.println(user.getUsername());
         var passwordEncrypted = auxiliaryMethods.encrypt(user.getPassword());
         var userLogin = userService.loginService(user.getUsername(), passwordEncrypted);
         if (userLogin.isPresent()){
-            System.out.println("SI ingreso");
             resp.setStatus(HttpServletResponse.SC_OK);
             auxiliary.send(resp, userLogin.get());
         }else {
