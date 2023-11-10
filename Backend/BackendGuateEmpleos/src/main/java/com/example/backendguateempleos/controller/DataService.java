@@ -1,5 +1,6 @@
 package com.example.backendguateempleos.controller;
 
+import com.example.backendguateempleos.model.Commission;
 import com.example.backendguateempleos.querys.QueryData;
 
 public class DataService {
@@ -15,5 +16,13 @@ public class DataService {
 
     public int getNumbersApplicants(){
         return queryData.numberApplicants();
+    }
+
+    public int getAmountCommission(){
+        return queryData.amountCommission();
+    }
+
+    public boolean updateAmountCommission(Commission commission){
+        return queryData.updateCommision(commission);
     }
 }

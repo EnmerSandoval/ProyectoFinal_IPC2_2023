@@ -6,8 +6,11 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarExample01">
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <li>
+                    <a class="nav-link">Reportes</a>
+                </li>
                 <li class="nav-item">
-                    <a class="nav-link" routerLink="">Categorias</a>
+                    <a class="nav-link" routerLink="/home-administrator">Menu Principal</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" routerLink="/main-house" (click)="onClickLogout()">Cerrar Session</a>
@@ -22,44 +25,78 @@
     <table class="table">
         <thead class="table-dark">
             <tr>
-                <th>CODIGO</th>
-                <th>NOMBRE</th>
-                <th>DESCRIPCION</th>
+                <th scope="col">CODIGO</th>
+                <th scope="col">NOMBRE</th>
+                <th scope="col">DESCRIPCION</th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let category of categoryList">
-                <td>{{category.numberCategory}}</td>
+                <td scope="row">{{category.numberCategory}}</td>
                 <td>{{category.nameCategory}}</td>
                 <td>{{category.description}}</td>
-                <td><button class="btn btn-primary">Editar</button></td>
+                <td><button class="btn btn-primary" (click)="showModalEdit(category)">Editar</button></td>
             </tr>
         </tbody>
     </table>
 </div>
 <div class="modal fade" id="createCategory" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Crear Categoria</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-        <form>
-            <div class="form-group">
-                <label for="valueInput">Nombre de la categoria:</label>
-                <input [(ngModel)]="category.nameCategory" type="text" class="form-control" id="valueInput"  name="valueInput">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Crear Categoria</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="form-group">
-                <label for="descriptionInput">Descripcion:</label>
-                <input [(ngModel)]="category.description" type="text" class="form-control" id="descriptionInput"  name="descriptionInput">
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="valueInput">Nombre de la categoria:</label>
+                        <input [(ngModel)]="newCategory.nameCategory" type="text" class="form-control" id="valueInput" name="valueInput">
+                    </div>
+                    <div class="form-group">
+                        <label for="descriptionInput">Descripcion:</label>
+                        <input [(ngModel)]="newCategory.description" type="text" class="form-control" id="descriptionInput"
+                            name="descriptionInput">
+                    </div>
+                </form>
             </div>
-        </form>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-primary" (click)="createCategory(category)">Crear</button>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" (click)="createCategory(newCategory)">Crear</button>
+            </div>
         </div>
     </div>
+</div>
+<!--Edit Category Modal-->
+<div class="modal fade" id="editCategory" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Editar Categoria</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="valueInput">Numero de la categoria:</label>
+                        <input [(ngModel)]="category.numberCategory" type="text" class="form-control"
+                            id="numberCategory" name="numberCategory" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="descriptionInput">Nombre de la categoria: </label>
+                        <input [(ngModel)]="category.nameCategory" type="text" class="form-control" id="nameCategory"
+                            name="nameCategory">
+                    </div>
+                    <div class="form-group">
+                        <label for="descriptionInput">Descripcion: </label>
+                        <input [(ngModel)]="category.description" type="text" class="form-control"
+                            id="descriptionCategory" name="descriptionCategory">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" (click)="updateCategory(category)">Actualizar</button>
+            </div>
+        </div>
     </div>
 </div>

@@ -20,11 +20,13 @@ public class CategoryService {
         return queryCategories.updateCategory(category);
     }
 
-    public Optional<Category> getCategory(Category category){
+    public Optional<Category> getCategoryByNumber(Category category){
         return queryCategories.getCategoryByNumberCategory(category);
     }
 
     public int maxNumberCategory(){
         return queryCategories.maxCategory();
     }
+
+
 }

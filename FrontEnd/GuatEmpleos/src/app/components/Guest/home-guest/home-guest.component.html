@@ -13,7 +13,6 @@
         </div>
     </div>
 </nav>
-
 <div class="container-fluid">
     <div class="row">
         <div class="col-lg-3" id="imagenLeft">
@@ -28,18 +27,18 @@
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th>Número de Oferta</th>
-                                        <th>Empresa</th>
-                                        <th>Categoría</th>
-                                        <th>Nombre de la Oferta</th>
-                                        <th>Salario</th>
-                                        <th>Detalles</th>
+                                        <th scope="col">Número de Oferta</th>
+                                        <th scope="col">Empresa</th>
+                                        <th scope="col">Categoría</th>
+                                        <th scope="col">Nombre de la Oferta</th>
+                                        <th scope="col">Salario</th>
+                                        <th scope="col">Detalles</th>
                                         <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr *ngFor="let job of jobsList">
-                                        <td>{{ job.numberJobOffert }}</td>
+                                        <td scope="row">{{ job.numberJobOffert }}</td>
                                         <td><a [href]="'enlace_empresa' + job.cuiEmployer">{{ job.nameEmployer }}</a>
                                         </td>
                                         <td>{{ job.category }}</td>
@@ -64,5 +63,4 @@
             </div>
         </div>
     </div>
-    
 </div>

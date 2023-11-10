@@ -30,7 +30,7 @@ public class ServletLogin extends HttpServlet {
             auxiliary.send(resp, userLogin.get());
         }else {
             System.out.println("No ingreso");
-            resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
+            resp.setStatus(HttpServletResponse.SC_NOT_ACCEPTABLE);
         }
     }
 

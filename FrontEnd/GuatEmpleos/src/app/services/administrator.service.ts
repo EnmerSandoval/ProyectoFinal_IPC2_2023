@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Data } from '../model/Data';
 import { Category } from '../model/Category';
+import { Commission } from '../model/Commission';
 
 @Injectable({
   providedIn: 'root'
@@ -34,8 +35,30 @@ export class AdministratorService {
   }
 
   public updateCategories(category : Category): Observable<Category[]> {
-    const params = new HttpParams().set('flag', '4').set('category', JSON.stringify(category));
+    const params = new HttpParams().set('flag', '4')
+    . set('numberCategory', category.numberCategory)
+    . set('nameCategory', category.nameCategory)
+    . set('description', category.description);
     return this.httpClient.get<Category[]>(`${this.url}/admin/administratorDataServlet`, {params});
+  }
+
+  public selectCategory(category : Category): Observable<Category> { 
+    const params = new HttpParams().set('flag', '5')
+    .set ('numberCategory', category.numberCategory);
+    return this.httpClient.get<Category>(`${this.url}/admin/administratorDataServlet`, {params});
+  }
+
+  public getCommissions(): Observable<Commission>{
+    const params = new HttpParams().set('flag', '6');
+    return this.httpClient.get<Commission>(`${this.url}/admin/administratorDataServlet`, {params});
+  }
+
+  public updateCommission(commission : Commission): Observable<Commission>{
+    const params = new HttpParams().set('flag', '7')
+    .set('numberCommission', 1)
+    .set('amount', commission.amount);
+    console.log("Update commision: " + commission.amount);
+    return this.httpClient.get<Commission>(`${this.url}/admin/administratorDataServlet`, {params});
   }
   
 }

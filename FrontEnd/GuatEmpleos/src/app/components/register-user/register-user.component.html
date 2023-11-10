@@ -1,48 +1,66 @@
-<form class="form" (ngSubmit)="onSubmit()" #registerForm="ngForm">
+<form class="form" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
     <p class="title">Registrar</p>
     <p class="message">Ingrese al sistema para poder acceder a todas las funcionalidades. </p>
     <span *ngIf="error" class="text-danger">No se pudo registrar intente nuevamente</span>
     <label>
-        <input [(ngModel)]="user.cui" name="cui" class="input" type="number" placeholder="" required="">
+        <input [class.is-invalid]="registerForm.controls['cui'].invalid && registerForm.controls['cui'].touched"
+            formControlName="cui" name="cui" id="cui" class="input" type="text" placeholder="">
         <span>Cui</span>
     </label>
+    <span *ngIf="registerForm.controls['cui'].invalid && (registerForm.controls['cui'].dirty || registerForm.controls['cui'].touched)" class="text-danger">El CUI debe tener máximo 13 numeros.</span>
     <label>
-        <input [(ngModel)]="user.name" name="name" class="input" type="text" placeholder="" required="">
+        <input [class.is-invalid]="registerForm.controls['name'].invalid && registerForm.controls['name'].touched" 
+        formControlName="name" name="name" id="name" class="input" type="text" placeholder="">
         <span>Nombre</span>
     </label>
+    <span *ngIf="registerForm.controls['name'].invalid && (registerForm.controls['name'].dirty || registerForm.controls['name'].touched)" class="text-danger">El nombre debe tener máximo 50 caracteres.</span>
     <label>
-        <input [(ngModel)]="user.username" name="username" class="input" type="text" placeholder="" required="">
-        <span>username</span>
+        <input [class.is-invalid]="registerForm.controls['username'].invalid && registerForm.controls['username'].touched" 
+        formControlName="username" name="username" id="username" class="input" type="text" placeholder="" required="">
+        <span>Username</span>
     </label>
-
+    <span *ngIf="registerForm.controls['username'].invalid && (registerForm.controls['username'].dirty || registerForm.controls['username'].touched)" class="text-danger">El username debe tener máximo 75 caracteres.</span>
     <label>
-        <input [(ngModel)]="user.address" name="address" class="input" type="text" placeholder="" required="">
+        <input [class.is-invalid]="registerForm.controls['address'].invalid && registerForm.controls['address'].touched"
+        formControlName="address" name="address" id="address" class="input" type="text" placeholder="" required="">
         <span>Address</span>
     </label>
+    <span *ngIf="registerForm.controls['address'].invalid && (registerForm.controls['address'].dirty || registerForm.controls['address'].touched)" class="text-danger">La direccion debe tener máximo 250 caracteres.</span>
     <label>
-        <input [(ngModel)]="user.email" name="email" class="input" type="email" placeholder="" required="">
+        <input [class.is-invalid]="registerForm.controls['email'].invalid && registerForm.controls['email'].touched"
+        formControlName="email" name="email" id="email" class="input" type="email" placeholder="" required="">
         <span>Email</span>
     </label>
+    <span *ngIf="registerForm.controls['email'].invalid && (registerForm.controls['email'].dirty || registerForm.controls['email'].touched)" class="text-danger">El email debe tener máximo 250 caracteres y ser de tipo Email.</span>
     <label>
-        <input [(ngModel)]="user.birth" name="birth" class="input" type="date" placeholder="" required="">
+        <input [class.is-invalid]="registerForm.controls['birth'].invalid && registerForm.controls['birth'].touched"
+        formControlName="birth" name="birth" id="birth" class="input" type="date" placeholder="" required="">
         <span>Fecha de nacimiento</span>
     </label>
+    <span *ngIf="registerForm.controls['birth'].invalid && (registerForm.controls['birth'].dirty || registerForm.controls['birth'].touched)" class="text-danger">Por favor seleccione o ingrese su fecha de nacimiento.</span>
     <label>
-        <select [(ngModel)]="user.typeUser" name="typeUser" class="input" required="">
+        <select [class.is-invalid]="registerForm.controls['typeUser'].invalid && registerForm.controls['typeUser'].touched"
+        formControlName="typeUser" name="typeUser" id="typeUser" class="input" required="">
             <option value="2">Empleador</option>
             <option value="3">Applicante</option>
         </select>
         <span>Tipo de usuario</span>
     </label>
+    <span *ngIf="registerForm.controls['typeUser'].invalid && (registerForm.controls['typeUser'].dirty || registerForm.controls['typeUser'].touched)" class="text-danger">Por favor seleccione un tipo de usuario.</span>
     <label>
-        <input [(ngModel)]="user.phoneNumber" name="phoneNumber" class="input" type="number" placeholder="" required="">
+        <input [class.is-invalid]="registerForm.controls['phoneNumber'].invalid && registerForm.controls['phoneNumber'].touched"
+        formControlName="phoneNumber" name="phoneNumber" id="phoneNumber" class="input" type="text" placeholder="" required="">
         <span>Phone number</span>
     </label>
+    <span *ngIf="registerForm.controls['phoneNumber'].invalid && (registerForm.controls['phoneNumber'].dirty || registerForm.controls['phoneNumber'].touched)" class="text-danger">El numero de telefono debe tener máximo 8 numeros.</span>                                                                        
     <label>
-        <input [(ngModel)]="user.password" name="password" class="input" type="password" placeholder="" required="">
+        <input [class.is-invalid]="registerForm.controls['password'].invalid && registerForm.controls['password'].touched"
+        formControlName="password" name="password" id="password" class="input" type="password" placeholder="" required="">
         <span>Password</span>
     </label>
+    <span *ngIf="registerForm.controls['password'].invalid && (registerForm.controls['password'].dirty || registerForm.controls['password'].touched)" class="text-danger">Por favor ingrese su contrasena.</span>
     <span *ngIf="register" class="text-success">El usuario se ha registrado correctamente</span>
-    <button class="submit">Submit</button>
+    <button class="submit" [disabled]="registerForm.invalid || registerForm.pristine || registerForm.untouched">Registrar</button>
+    <span *ngIf="registerForm.invalid || registerForm.pristine || registerForm.untouched" class="text-danger">Por favor llene todos los campos o no podra registrarse</span>
     <p class="signin">Ya tienes una cuenta? <a routerLink="/login">Inicia Sesion</a> </p>
 </form>

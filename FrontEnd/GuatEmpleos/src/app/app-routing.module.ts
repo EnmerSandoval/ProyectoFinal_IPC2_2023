@@ -8,7 +8,6 @@ import { RegisterTokenComponent } from './components/register-token/register-tok
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
 import { HomeGuestComponent } from './components/Guest/home-guest/home-guest.component';
 import { DescriptionEmployerComponent } from './components/Employer/description-employer/description-employer.component';
-import { ViewEmployerComponent } from './components/Guest/view-employer/view-employer.component';
 import { RegiterCardComponent } from './components/Employer/regster-card/regiter-card.component';
 import { HomeAdministratorComponent } from './components/Administrator/home-administrator/home-administrator.component';
 import { UnauthorizedComponent } from './components/Errors/unauthorized/unauthorized.component';
@@ -25,7 +24,6 @@ const routes: Routes = [
   { path: 'register-token', component: RegisterTokenComponent },
   { path: 'change-password', component: ChangePasswordComponent },
   { path: 'home-guest', component: HomeGuestComponent,  },
-  { path: 'employer/view', component: ViewEmployerComponent },
   { path: 'home-administrator',component: HomeAdministratorComponent,canActivate: [AdminAuthGuard]},
   { path: 'categorys', component: CategorysComponent, canActivate: [AdminAuthGuard] },
 

@@ -57,8 +57,9 @@ public class QueryUser {
     public boolean registerUser(User user){
         String passwordEncrypted = auxiliaryMethods.encrypt(user.getPassword());
         String query = "INSERT INTO user (codUser, cui, name, username, password, address, email, birthdate, typeOfUser) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        if (verifyUsername(user)){
+        if (verifyUsername(user) || verifyEmail(user)){
             System.out.println("NO SE PUEDE REGISTRAR");
+            return false;
         } else {
             try (var preparedStatement = connection.prepareStatement(query)) {
                 preparedStatement.setInt(1, maxCodUser() + 1);
@@ -71,9 +72,10 @@ public class QueryUser {
                 preparedStatement.setDate(8, user.getBirth());
                 preparedStatement.setInt(9, user.getTypeUser());
                 preparedStatement.executeUpdate();
-                System.out.println("Se registro el usuario");
                 if (insertPhoneNumber(user)) {
                     return true;
+                } else {
+                    return false;
                 }
             } catch (SQLException e) {
                 System.out.println("Error al registrar el usuario: " + e);

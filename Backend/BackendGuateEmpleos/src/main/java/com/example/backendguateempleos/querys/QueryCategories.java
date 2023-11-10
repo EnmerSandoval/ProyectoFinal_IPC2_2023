@@ -37,7 +37,7 @@ public class QueryCategories {
     }
 
     public Optional<Category> getCategoryByNumberCategory(Category category){
-        String query = "SELECT * FROM categories WHERE = ?";
+        String query = "SELECT * FROM categories WHERE numberCategory = ?";
         Category category1 = new Category();
         try (var preparedStatement = connection.prepareStatement(query)){
             preparedStatement.setInt(1, category.getNumberCategory());

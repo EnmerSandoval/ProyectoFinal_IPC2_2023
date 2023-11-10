@@ -12,7 +12,6 @@ import { MainHouseComponent } from './components/main-house/main-house.component
 import { RegisterTokenComponent } from './components/register-token/register-token.component';
 import { HomeGuestComponent } from './components/Guest/home-guest/home-guest.component';
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
-import { ViewEmployerComponent } from './components/Guest/view-employer/view-employer.component';
 import { DescriptionEmployerComponent } from './components/Employer/description-employer/description-employer.component';
 import { RegiterCardComponent } from './components/Employer/regster-card/regiter-card.component';
 import { HomeAdministratorComponent } from './components/Administrator/home-administrator/home-administrator.component';
@@ -31,7 +30,6 @@ import { CategorysComponent } from './components/Administrator/categorys/categor
     RegisterTokenComponent,
     HomeGuestComponent,
     ChangePasswordComponent,
-    ViewEmployerComponent,
     DescriptionEmployerComponent,
     RegiterCardComponent,
     HomeAdministratorComponent,
