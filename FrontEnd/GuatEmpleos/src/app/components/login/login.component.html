@@ -1,0 +1,17 @@
+<div class="container">
+    <div class="heading">Iniciar Sesion</div>
+    <span *ngIf="error" class="text-danger">Error al ingresar</span>
+    <form action="" class="form" id="loginForm" [formGroup]="loginForm" (ngSubmit)="onSubmit()" >
+      <input [class.is-invalid]="loginForm.controls['username'].invalid && loginForm.controls['username'].touched"
+      formControlName="username" class="input" type="text" name="username" id="username" placeholder="username">
+      <input [class.is-invalid]="loginForm.controls['password'].invalid && loginForm.controls['password'].touched"
+      formControlName="password" class="input" type="password" name="password" id="password" placeholder="Password">
+      <span class="forgot-password"><a routerLink="/forgot-password">Olvidaste tu contrasena?</a></span>
+      <span class="register"><a routerLink="/register-user">Registrar</a></span>
+      <span *ngIf="loginForm.invalid && (loginForm.dirty || loginForm.touched)" class="text-danger">
+        <br>
+        Por favor llene todos los campos para ingresar.
+      </span>      
+      <input class="login-button" type="submit" value="Sign In" [disabled]="loginForm.invalid">
+    </form>
+</div>

@@ -1,0 +1,22 @@
+<div class="container">
+    <div class="heading">Recuperar Contrasena</div>
+    <span *ngIf="error" class="text-danger">Error el token no es valido o es vencido.</span>
+    <form class="form" (ngSubmit)="onSubmit()" #validateToken="ngForm">
+        <div class="mb-3">
+            <label for="forgotPassword" class="form-label">Ingrese el token</label>
+            <input [(ngModel)]="token.token" name="token" type="text" class="form-control" id="token">
+            <div id="emailHelp" class="form-text">Ingrese el token que se le envio al correo.</div>
+        </div>
+        <div class="mb-3 form-check">
+            <input [(ngModel)]="captcha" name="captcha" type="checkbox" class="form-check-input" id="exampleCheck1">
+            <label class="form-check-label" for="exampleCheck1">No soy un robot</label>
+        </div>
+        <div *ngIf="errorCaptcha">
+            <span class="text-danger">Por favor marque no soy un robot para seguir.</span>
+            <br>
+        </div>
+        <div class="d-flex justify-content-between mb-3">
+            <button type="submit" class="btn btn-primary me-2" >Enviar</button>
+        </div>
+    </form>
+</div>

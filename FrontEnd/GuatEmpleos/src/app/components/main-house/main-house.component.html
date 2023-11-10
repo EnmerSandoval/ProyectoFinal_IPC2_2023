@@ -1,0 +1,43 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-white">
+    <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#navbarExample01"
+            aria-controls="navbarExample01" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarExample01">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/login">Iniciar Sesion</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<header>
+    <style>
+        #intro-example {
+            height: 400px;
+        }
+
+        @media (min-width: 992px) {
+            #intro-example {
+                height: 600px;
+            }
+        }
+    </style>
+    <div id="intro-example" class="p-5 text-center bg-image"
+        style="background-image: url('https://thumbs.dreamstime.com/z/empleos-de-la-gente-del-d%C3%ADa-trabajo-diversos-colocan-junto-el-fondo-gris-concepto-los-globos-celebraci%C3%B3n-comunicaci%C3%B3n-123626123.jpg');">
+       <br><br><br><br>
+        <div class="mask" style="background-color: rgba(0, 0, 0, 0.7);">
+            <div class="d-flex justify-content-center align-items-center h-100">
+                <div class="text-white">
+                    <h1 class="mb-3">Bienvenido</h1>
+                    <h5 class="mb-4">A GUATEEMPLEOS</h5>
+                    <a class="btn btn-outline-light btn-lg m-2" id="registroBiblioteca" role="button"
+                        rel="nofollow" routerLink="/home-guest">Ver Empleos</a>
+                    <a class="btn btn-outline-light btn-lg m-2" role="button" routerLink="/register-user">Registrarse</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>

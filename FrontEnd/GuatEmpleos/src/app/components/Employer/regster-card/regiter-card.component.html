@@ -1,0 +1,18 @@
+<form class="form" (ngSubmit)="onSubmit()" #registerForm="ngForm">
+    <p class="title">Registrar Su Metodo de Pago</p>
+    <span *ngIf="error" class="text-danger">No se pudo registrar intente nuevamente</span>
+    <label>
+        <input [(ngModel)]="card.numberCard" name="numberCard" class="input" type="number" placeholder="" required="">
+        <span>Numero de tarjeta</span>
+    </label>
+    <label>
+        <input [(ngModel)]="card.nameChargeCard" name="nameChargeCard" class="input" type="text" placeholder="" required="">
+        <span>Nombre del Titular de la tarjeta</span>
+    </label>
+    <label>
+        <input [(ngModel)]="card.cvv" name="cvv" class="input" type="text" placeholder="" required="">
+        <span>cvv</span>
+    </label>
+    <span *ngIf="registerCard" class="text-success">Se ha registrado su metodo de pago</span>
+    <button class="submit">Enviar</button>
+</form>
