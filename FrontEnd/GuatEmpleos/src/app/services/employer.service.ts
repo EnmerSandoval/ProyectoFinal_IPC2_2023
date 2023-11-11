@@ -20,6 +20,7 @@ export class EmployerService {
     .set('flag', '1');
     return this.http.get(`${this.url}/employer/descriptionServlet`, {params});
   }
+  
   registerCardEmployer(card : Card) {
     const params = new HttpParams()
     .set('cuiEmployer', card.cuiEmployer)

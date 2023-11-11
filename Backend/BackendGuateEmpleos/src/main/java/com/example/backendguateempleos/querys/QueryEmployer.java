@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Optional;
 
 public class QueryEmployer {
         //El Employer es 2
@@ -20,12 +21,13 @@ public class QueryEmployer {
     }
 
     public List<Job> publishedWorks(){
-        String query = " SELECT jo.numberJobOffert, u.name AS userName, jo.nameOfJobOffert AS jobName, jo.description, jo.modality, jo.salary, jo.publicationDate, jo.details, c.nameCategory AS categories FROM jobOffert jo INNER JOIN user u ON jo.cuiEmployer = u.cui LEFT JOIN categories c ON jo.numberCategorie = c.numberCategory";
+        String query = " SELECT jo.numberJobOffert, u.name AS userName, jo.nameOfJobOffert AS jobName, jo.description, jo.modality, jo.salary, jo.publicationDate, jo.details, jo.cuiEmployer, c.nameCategory AS categories FROM jobOffert jo INNER JOIN user u ON jo.cuiEmployer = u.cui LEFT JOIN categories c ON jo.numberCategorie = c.numberCategory";
         List<Job> jobOffers = new ArrayList<>();
         try (var preparedStatement = connection.prepareStatement(query)){
             try(var resultSet = preparedStatement.executeQuery()){
                 while (resultSet.next()){
                     Job job = Job.builder()
+                            .cuiEmployer(resultSet.getInt("cuiEmployer"))
                             .numberJobOffert(resultSet.getInt("numberJobOffert"))
                             .nameEmployer(resultSet.getString("userName"))
                             .nameOfJobOffert(resultSet.getString("jobName"))
@@ -74,5 +76,29 @@ public class QueryEmployer {
             System.out.println("Error in insert card employer: " + e);
         }
         return false;
+    }
+
+    public Optional<Employer> getEmployerByCui(Employer employer){
+        String query = "SELECT user.*, employer.*, phoneNumbers.* FROM user INNER JOIN employer ON user.cui = employer.cuiEmployer INNER JOIN phoneNumbers ON user.cui = phoneNumbers.cuiUser WHERE user.cui = ?";
+        Employer employerReturn = new Employer();
+        try (var preparedStatement = connection.prepareStatement(query)){
+            preparedStatement.setInt(1, employer.getCui());
+            try (var resultSet = preparedStatement.executeQuery()){
+                while (resultSet.next()){
+                    employerReturn.setCui(employer.getCui());
+                    employerReturn.setVision(resultSet.getString("vision"));
+                    System.out.println("desde la query " + employerReturn.getVision());
+                    employerReturn.setMission(resultSet.getString("mission"));
+                    employerReturn.setAddress(resultSet.getString("address"));
+                    employerReturn.setEmail(resultSet.getString("email"));
+                    employerReturn.setName(resultSet.getString("name"));
+                    employerReturn.setPhoneNumber(resultSet.getInt("phoneNumber"));
+                    return Optional.ofNullable(employerReturn);
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Error in get Employer by cui please check: " + e);
+        }
+        return Optional.empty();
     }
 }
