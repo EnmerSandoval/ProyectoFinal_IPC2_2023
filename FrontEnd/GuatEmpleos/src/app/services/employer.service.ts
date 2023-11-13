@@ -9,7 +9,7 @@ import { Card } from '../model/Card';
 export class EmployerService {
 
 
-  private url: string = 'http://localhost:8080/BackendGuateEmpleos_war_exploded';
+  readonly url: string = 'http://localhost:8080/BackendGuateEmpleos_war_exploded';
 
   constructor(private http: HttpClient) { }
 

@@ -33,7 +33,7 @@ public class QueryUser {
                 }
             }
         } catch (SQLException e) {
-            System.out.println("Error in login check please: " + e);
+            System.out.println("Error in Fin check please: " + e);
         }
         return Optional.empty();
     }

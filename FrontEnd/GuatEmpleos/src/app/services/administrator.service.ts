@@ -11,7 +11,7 @@ import { Commission } from '../model/Commission';
 })
 export class AdministratorService {
   
-  private url: string = 'http://localhost:8080/BackendGuateEmpleos_war_exploded';
+  readonly url: string = 'http://localhost:8080/BackendGuateEmpleos_war_exploded';
 
   constructor(private httpClient : HttpClient) { }
 
@@ -56,7 +56,8 @@ export class AdministratorService {
   public updateCommission(commission : Commission): Observable<Commission>{
     const params = new HttpParams().set('flag', '7')
     .set('numberCommission', 1)
-    .set('amount', commission.amount);
+    .set('amount', commission.amount)
+    .set('beforeAmount', commission.beforeAmount);
     console.log("Update commision: " + commission.amount);
     return this.httpClient.get<Commission>(`${this.url}/admin/administratorDataServlet`, {params});
   }

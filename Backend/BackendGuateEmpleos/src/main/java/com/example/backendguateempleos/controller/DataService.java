@@ -23,6 +23,6 @@ public class DataService {
     }
 
     public boolean updateAmountCommission(Commission commission){
-        return queryData.updateCommision(commission);
+        return queryData.updateCommissionAndHistory(commission);
     }
 }

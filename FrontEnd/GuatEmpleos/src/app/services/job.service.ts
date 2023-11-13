@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class JobService {
-  private url: string = 'http://localhost:8080/BackendGuateEmpleos_war_exploded';
+  readonly url: string = 'http://localhost:8080/BackendGuateEmpleos_war_exploded';
 
   constructor(private httpClient : HttpClient) { }
   public getAllJobs(): Observable<Job[]> {

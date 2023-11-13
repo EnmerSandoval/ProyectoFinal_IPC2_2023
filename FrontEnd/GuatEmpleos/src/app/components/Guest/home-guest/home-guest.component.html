@@ -7,6 +7,9 @@
         <div class="collapse navbar-collapse" id="navbarExample01">
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 <li class="nav-item">
+                    <a class="nav-link" routerLink="/main-house">Menu Principal</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" routerLink="/login">Iniciar Sesion</a>
                 </li>
             </ul>
@@ -44,7 +47,7 @@
                                         <td>{{ job.category }}</td>
                                         <td>{{ job.nameOfJobOffert }}</td>
                                         <td>{{ "Q." + job.salary }}</td>
-                                        <td><a href="javascript:void(0)" (click)="showModalJobOffert()">Ver detalles</a>
+                                        <td><a href="javascript:void(0)" (click)="showModalJobOffert(job.numberJobOffert)">Ver detalles</a>
                                         </td>
                                         <td><button class="btn btn-primary" routerLink="/login">Postularme</button></td>
                                     </tr>
@@ -118,23 +121,31 @@
             <div class="modal-body">
                 <div class="flex flex-col bg-white rounded-3xl">
                     <div class="card">
-                        <h5 class="card-headre"><b>name de la empresa</b></h5>
+                        <br>
+                        <h5 class="card-headre">Empresa: </h5>
+                        <h5 class="card-headre"><b>{{jobOffert.nameEmployer}}</b></h5>
                         <div class="card-body">
                           
                           <span>
-                            <h5 class="">nombre de la oferta</h5>
+                            <h5 class=""><b>Se solicita: </b></h5>
+                            <h5 class="">{{jobOffert.nameOfJobOffert}}</h5>
                           </span>
-                          <textarea class="">description de la oferta</textarea>
-                          <h5 class="">categoria: Category</h5>
-                          <p class="">localidad</p>
-                          <p class="">Salario</p>
+                          <h5 class=""><b>Descripcion: </b></h5>
+                          <textarea class="">{{jobOffert.description}}</textarea>
+                          <h5 class=""><b>Categoria: </b></h5>
+                          <h5 class="">{{jobOffert.category}}</h5>
+                          <h5 class=""><b>Localidad: </b></h5>
+                          <p class="">{{jobOffert.location}}</p>
+                          <h5 class=""><b>Salario: </b></h5>
+                          <p class="">{{"Q." + jobOffert.salary}}</p>
+                          <h5 class=""><b>Modalidad: </b></h5>
+                          <p class="">{{jobOffert.modality}}</p>
                         </div>
                       </div>
                       <h5></h5>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" (click)="hideModal()">Cerrar</button>
-                    <button type="button" class="btn btn-primary" routerLink="/login">Postularme</button>
                 </div>
             </div>
         </div>

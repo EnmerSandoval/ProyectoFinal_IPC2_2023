@@ -1,0 +1,24 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-black">
+    <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#navbarExample01"
+            aria-controls="navbarExample01" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="fas fa-bars"></i>
+        </button>
+    </div>
+</nav>
+<div class="container">
+    <div class="heading">Cargue su curriculum</div>
+    <span *ngIf="error" class="text-danger">Error al Cargar</span>
+    <div class="col-md-12">
+        <div class="form-row">
+            <div class="form-group">
+                <label  for="inputPdf">Subir CV</label>
+                <input  type="file" (change)="processFile($event)" />
+                <button class="btn btn-primary" (click)="uploadToServer()">Subir</button>
+                <div *ngIf="fileUploaded">
+                    Archivo subido correctamente
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

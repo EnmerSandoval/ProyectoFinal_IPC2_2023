@@ -4,6 +4,7 @@ import com.example.backendguateempleos.model.Auxiliary;
 import com.example.backendguateempleos.model.Employer;
 import com.example.backendguateempleos.model.Job;
 import com.example.backendguateempleos.querys.QueryEmployer;
+import com.example.backendguateempleos.querys.QueryJob;
 import com.example.backendguateempleos.querys.QueryVisits;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -21,8 +22,10 @@ public class GuestMainServlet extends HttpServlet {
 
     private final Auxiliary<Job> auxiliary = new Auxiliary<>();
     private final Auxiliary<Employer> employerAuxiliary = new Auxiliary<>();
+    private final Auxiliary<Job> jobAuxiliary = new Auxiliary<>();
     private final QueryEmployer queryEmployer = new QueryEmployer();
     private final QueryVisits queryVisits = new QueryVisits();
+    private final QueryJob queryJob = new QueryJob();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -41,18 +44,24 @@ public class GuestMainServlet extends HttpServlet {
         } else if(flag != null && flag.equals("2")){
             Employer employer = new Employer();
             employer.setCui(Integer.parseInt(req.getParameter("cui")));
-            System.out.println("flag 2" + employer.getCui());
             employer = queryEmployer.getEmployerByCui(employer).get();
-            System.out.println(employer.getCui());
-            System.out.println(employer.getMission());
             if (employer != null){
-                System.out.println(employer.toString());
                 employerAuxiliary.send(resp, employer);
                resp.setStatus(HttpServletResponse.SC_OK);
             } else {
                 resp.setStatus(HttpServletResponse.SC_NOT_ACCEPTABLE);
             }
-        }else {
+        } else if(flag != null && flag.equals("3")){
+            Job jobOffert = new Job();
+            jobOffert.setNumberJobOffert(Integer.parseInt(req.getParameter("numberJobOffert")));
+            jobOffert = queryJob.getJobByNumberOffert(jobOffert).get();
+            if (jobOffert != null){
+                jobAuxiliary.send(resp, jobOffert);
+                resp.setStatus(HttpServletResponse.SC_OK);
+            } else {
+                resp.setStatus(HttpServletResponse.SC_NOT_ACCEPTABLE);
+            }
+        } else {
             resp.setStatus(HttpServletResponse.SC_NOT_MODIFIED);
         }
     }

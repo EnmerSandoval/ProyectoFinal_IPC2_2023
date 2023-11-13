@@ -6,6 +6,7 @@ import com.example.backendguateempleos.model.Data;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 public class QueryData {
     private final Connection connection;
@@ -61,6 +62,22 @@ public class QueryData {
         return number;
     }
 
+    public boolean updateCommissionAndHistory(Commission commission) {
+        try {
+            updateCommision(commission);
+
+            if (hasPreviousHistoryWithAmount(commission.getBeforeAmount())) {
+                updateHistoryEndDate(commission.getBeforeAmount());
+            }
+
+            insertHistory(commission);
+            return true;
+        } catch (SQLException e) {
+            System.out.println("Error in updateCommissionAndHistory: " + e);
+        }
+        return false;
+    }
+
     public int amountCommission(){
         String query = "SELECT * FROM commission WHERE numberCommission = ?";
         int amount = 0;
@@ -88,5 +105,44 @@ public class QueryData {
             System.out.println("Error in update Commission please check: " + e);
         }
         return false;
+    }
+
+    private boolean hasPreviousHistoryWithAmount(int amount) throws SQLException {
+        String query = "SELECT 1 FROM commissionsHistory WHERE  amount = ? AND dateCommissionsEnd IS NULL";
+        try (var preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setInt(1, amount);
+            try (var resultSet = preparedStatement.executeQuery()) {
+                return resultSet.next();
+            }
+        }
+    }
+
+
+
+    private void updateHistoryEndDate(int amount) throws SQLException {
+        String query = "UPDATE commissionsHistory SET dateCommissionsEnd = CURRENT_DATE WHERE amount = ? AND dateCommissionsEnd IS NULL";
+        try (var preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setInt(1, amount);
+            preparedStatement.executeUpdate();
+        }
+    }
+
+
+
+
+    private void insertHistory(Commission commission)  {
+        String query = "INSERT INTO commissionsHistory (dateCommission, amount) VALUES (CURRENT_DATE, ?)";
+        try (var preparedStatement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
+            preparedStatement.setInt(1, commission.getAmount());
+            preparedStatement.executeUpdate();
+
+            try (var resultSet = preparedStatement.getGeneratedKeys()) {
+                if (resultSet.next()) {
+                    int generatedId = resultSet.getInt(1);
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Error in insert history please check:  " + e);
+        }
     }
 }

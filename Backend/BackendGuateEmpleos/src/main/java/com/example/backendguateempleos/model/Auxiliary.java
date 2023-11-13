@@ -56,6 +56,7 @@ public class Auxiliary<T> {
                     }
                 })
                 .create();
+        System.out.println(payload);
         return gson.fromJson(payload, classT);
     }
 

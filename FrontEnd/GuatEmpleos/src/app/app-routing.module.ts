@@ -13,6 +13,10 @@ import { HomeAdministratorComponent } from './components/Administrator/home-admi
 import { UnauthorizedComponent } from './components/Errors/unauthorized/unauthorized.component';
 import { AdminAuthGuard } from './guard/AdminAuthGuard';
 import { CategorysComponent } from './components/Administrator/categorys/categorys.component';
+import { ApplicantAuthGuard } from './guard/ApplicantAuthGuard';
+import { UploadCvComponent } from './components/Applicant/upload-cv/upload-cv.component';
+import { EmployerAuthGuard } from './guard/EmployerAuthGuard';
+import { HomeEmployerComponent } from './components/Employer/home-employer/home-employer.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/main-house', pathMatch: 'full' },
@@ -26,12 +30,11 @@ const routes: Routes = [
   { path: 'home-guest', component: HomeGuestComponent,  },
   { path: 'home-administrator',component: HomeAdministratorComponent,canActivate: [AdminAuthGuard]},
   { path: 'categorys', component: CategorysComponent, canActivate: [AdminAuthGuard] },
-
-
-  { path: 'employer/description', component: DescriptionEmployerComponent },
-  { path: 'employer/regiterCard', component: RegiterCardComponent },
-
-
+  { path: 'employer/description', component: DescriptionEmployerComponent, canActivate: [EmployerAuthGuard] },
+  { path: 'employer/regiterCard', component: RegiterCardComponent, canActivate: [EmployerAuthGuard]},
+  { path: 'home-employer', component: HomeEmployerComponent, canActivate: [EmployerAuthGuard]},
+  { path: 'applicant/upload-cv', component: UploadCvComponent, canActivate: [ApplicantAuthGuard]},
+  
 ];
 
 @NgModule({

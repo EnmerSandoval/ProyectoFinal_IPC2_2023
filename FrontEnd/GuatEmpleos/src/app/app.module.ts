@@ -19,6 +19,11 @@ import { AdminAuthGuard } from './guard/AdminAuthGuard';
 import { AuthService } from './services/AuthService';
 import { UnauthorizedComponent } from './components/Errors/unauthorized/unauthorized.component';
 import { CategorysComponent } from './components/Administrator/categorys/categorys.component';
+import { UploadCvComponent } from './components/Applicant/upload-cv/upload-cv.component';
+import { ApplicantAuthGuard } from './guard/ApplicantAuthGuard';
+import { EmployerAuthGuard } from './guard/EmployerAuthGuard';
+import { HomeEmployerComponent } from './components/Employer/home-employer/home-employer.component';
+
 
 @NgModule({
   declarations: [
@@ -35,6 +40,8 @@ import { CategorysComponent } from './components/Administrator/categorys/categor
     HomeAdministratorComponent,
     UnauthorizedComponent,
     CategorysComponent,
+    UploadCvComponent,
+    HomeEmployerComponent,
   ],
   imports: [
     BrowserModule,
@@ -43,7 +50,7 @@ import { CategorysComponent } from './components/Administrator/categorys/categor
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [AuthService, AdminAuthGuard],
+  providers: [AuthService, AdminAuthGuard, ApplicantAuthGuard, EmployerAuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

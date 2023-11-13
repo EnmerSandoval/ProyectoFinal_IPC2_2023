@@ -46,6 +46,7 @@ export class HomeAdministratorComponent {
 
   updateCommission(commission : Commission){
     this.newCommission = { ...commission};
+    this.newCommission.beforeAmount = commission.amount;
     this.administratorService.updateCommission(commission).subscribe({
     });
     this.newCommission.amount = 0;
