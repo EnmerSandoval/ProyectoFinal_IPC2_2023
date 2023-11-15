@@ -10,18 +10,46 @@
                    <a class="nav-link">Reportes</a> 
                 </li>
                 <li>
-                    <a class="nav-link">Gestion de ofertas</a>
+                    <a class="nav-link" routerLink="/employer/bid-management">Gestion de ofertas</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link">Revision de postulaciones</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" routerLink="/categorys">Revision de entrevistas</a>
+                    <a class="nav-link" >Revision de entrevistas</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" routerLink="/main-house">Cerrar Session</a>
+                    <a class="nav-link" routerLink="/main-house" (click)="onClickLogOut()">Cerrar Session</a>
                 </li>
             </ul>
         </div>
     </div>
 </nav>
+<header>
+    <style>
+        #intro-example {
+            height: 400px;
+        }
+
+        @media (min-width: 992px) {
+            #intro-example {
+                height: 600px;
+            }
+        }
+    </style>
+    <div id="intro-example" class="p-5 text-center bg-image"
+        style="background-image: url('');">
+       <br><br><br><br>
+        <div class="mask" style="background-color: rgba(0, 0, 0, 0.7);">
+            <div class="d-flex justify-content-center align-items-center h-100">
+                <div class="text-white">
+                    <h1 class="mb-3">{{'Bienvenido ' + user.name}}</h1>
+                    <h5 class="mb-4">A GUATEEMPLEOS</h5>
+                    <a class="btn btn-outline-light btn-lg m-2" id="registroBiblioteca" role="button"
+                        rel="nofollow" routerLink="/employer/bid-management">Gestion de ofertas</a>
+                    <a class="btn btn-outline-light btn-lg m-2" role="button" routerLink="/register-user">Reportes</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>

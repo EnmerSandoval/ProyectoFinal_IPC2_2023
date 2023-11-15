@@ -6,68 +6,56 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarExample01">
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <li class="nav-item">Entrevistas</li>
                 <li class="nav-item">
-                    <a class="nav-link" routerLink="/main-house">Menu Principal</a>
+                    <a class="nav-link" >Postulaciones</a>
+                </li>
+                <li class="nav-item" >Edicion de Perfil</li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/main-house">Ver Ofertas</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" routerLink="/login">Iniciar Sesion</a>
+                    <a class="nav-link" routerLink="/login">Cerrar Sesion</a>
                 </li>
             </ul>
         </div>
     </div>
 </nav>
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-lg-3" id="imagenLeft">
-            <img src="assets/anuncio2.jpeg" class="img-fluid mb-3" alt="Advertisement2">
-        </div>
-        <div class="col-lg-9" id="divGeneral">
-            <h1 class="display-4">GuatEmpleos</h1>
-            <section class="page-section" id="actions">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">Número de Oferta</th>
-                                        <th scope="col">Empresa</th>
-                                        <th scope="col">Categoría</th>
-                                        <th scope="col">Nombre de la Oferta</th>
-                                        <th scope="col">Salario</th>
-                                        <th scope="col">Detalles</th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr *ngFor="let job of jobsList">
-                                        <td scope="row">{{ job.numberJobOffert }}</td>
-                                        <td><a href="javascript:void(0)" (click)="showModal(job.cuiEmployer)">{{
-                                                job.nameEmployer }}</a></td>
-                                        <td>{{ job.category }}</td>
-                                        <td>{{ job.nameOfJobOffert }}</td>
-                                        <td>{{ "Q." + job.salary }}</td>
-                                        <td><a href="javascript:void(0)" (click)="showModalJobOffert(job.numberJobOffert)">Ver detalles</a>
-                                        </td>
-                                        <td><button class="btn btn-primary" routerLink="/login">Postularme</button></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
-        <div class="col-lg-1 text-end">
-            <img src="assets/anuncio1.jpeg" class="img-fluid" alt="Advertisement 1">
-        </div>
-        <div>
-            <div class="container" id="advertisementFooter">
-                <img src="assets/anuncio3.jpeg" class="img-fluid" alt="Advertisement 3">
-            </div>
-        </div>
+<div class="container" >
+    <h2>Ofertas Sugeridas</h2>
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Número de Oferta</th>
+                    <th scope="col">Empresa</th>
+                    <th scope="col">Categoría</th>
+                    <th scope="col">Nombre de la Oferta</th>
+                    <th scope="col">Salario</th>
+                    <th scope="col">Detalles</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let job of jobsList">
+                    <td scope="row">{{ job.numberJobOffert }}</td>
+                    <td><a href="javascript:void(0)" (click)="showModal(job.cuiEmployer)">{{
+                            job.nameEmployer }}</a></td>
+                    <td>{{ job.category }}</td>
+                    <td>{{ job.nameOfJobOffert }}</td>
+                    <td>{{ "Q." + job.salary }}</td>
+                    <td><a href="javascript:void(0)" (click)="showModalJobOffert(job.numberJobOffert)">Ver detalles</a>
+                    </td>
+                    <td><button class="btn btn-primary" (click)="showModalPostulation(job.numberJobOffert)">Postularme</button></td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </div>
+<div *ngIf="!suggestionOffert" class="alert ">
+    No hay sugerencias de empleos
+</div>
+
 <div class="modal fade" id="viewEmployer" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">

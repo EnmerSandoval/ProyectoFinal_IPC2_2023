@@ -17,6 +17,10 @@ import { ApplicantAuthGuard } from './guard/ApplicantAuthGuard';
 import { UploadCvComponent } from './components/Applicant/upload-cv/upload-cv.component';
 import { EmployerAuthGuard } from './guard/EmployerAuthGuard';
 import { HomeEmployerComponent } from './components/Employer/home-employer/home-employer.component';
+import { BidManagementComponent } from './components/Employer/bid-management/bid-management.component';
+import { SelectCategoriesComponent } from './components/Applicant/select-categories/select-categories.component';
+import { HomeApplicantComponent } from './components/Applicant/home-applicant/home-applicant.component';
+import { PostulationModalComponent } from './components/Applicant/postulation-modal/postulation-modal.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/main-house', pathMatch: 'full' },
@@ -34,7 +38,10 @@ const routes: Routes = [
   { path: 'employer/regiterCard', component: RegiterCardComponent, canActivate: [EmployerAuthGuard]},
   { path: 'home-employer', component: HomeEmployerComponent, canActivate: [EmployerAuthGuard]},
   { path: 'applicant/upload-cv', component: UploadCvComponent, canActivate: [ApplicantAuthGuard]},
-  
+  { path: 'employer/bid-management', component: BidManagementComponent, canActivate: [EmployerAuthGuard]},
+  { path: 'select-categories', component: SelectCategoriesComponent, canActivate: [ApplicantAuthGuard]},
+  { path: 'home-applicant', component: HomeApplicantComponent, canActivate: [ApplicantAuthGuard]},
+  { path: 'postulation-modal', component: PostulationModalComponent, canActivate: [ApplicantAuthGuard]},
 ];
 
 @NgModule({

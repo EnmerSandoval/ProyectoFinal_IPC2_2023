@@ -3,6 +3,7 @@ package com.example.backendguateempleos.model;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonDeserializer;
+import com.google.gson.reflect.TypeToken;
 import com.google.protobuf.TextFormat;
 import jakarta.servlet.http.HttpServletResponse;
 
@@ -56,9 +57,34 @@ public class Auxiliary<T> {
                     }
                 })
                 .create();
-        System.out.println(payload);
         return gson.fromJson(payload, classT);
     }
+
+    public <T> List<T> readArray(HttpServletRequest request, Class<T> classT) throws IOException {
+        StringBuilder buffer = new StringBuilder();
+        BufferedReader reader = request.getReader();
+        String line;
+        while ((line = reader.readLine()) != null) {
+            buffer.append(line);
+        }
+        String payload = buffer.toString();
+        Gson gson = new GsonBuilder()
+                .registerTypeAdapter(Date.class, (JsonDeserializer<Date>) (json, typeOfT, context) -> {
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                    try {
+                        java.util.Date utilDate = sdf.parse(json.getAsString());
+                        return new Date(utilDate.getTime());
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                        return null;
+                    }
+                })
+                .create();
+        Type listType = TypeToken.getParameterized(List.class, classT).getType();
+        return gson.fromJson(payload, listType);
+    }
+
+
 
 
     public T getRequest(HttpServletRequest request, String parameterName, Class<T> classT) throws IOException {

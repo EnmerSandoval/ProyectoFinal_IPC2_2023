@@ -47,6 +47,10 @@ export class LoginComponent {
   redirect(user : User){
     if(user.typeUser == 1){
       this.router.navigate(['/home-administrator']);
+    } else if (user.typeUser == 2){
+      this.router.navigate(['/home-employer']);
+    } else if (user.typeUser == 3){
+      this.router.navigate(['/home-applicant']);
     }
   }
 }

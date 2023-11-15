@@ -1,0 +1,351 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-black">
+    <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#navbarExample01"
+            aria-controls="navbarExample01" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarExample01">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/home-employer">Menu Principal</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/main-house" (click)="onClickLogOut()">Cerrar Session</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container ">
+    <button class="btn btn-primary" (click)="showModal()"> + Crear nueva Oferta</button>
+    <br><br>
+    <table class="table">
+        <thead class="table-dark">
+            <tr>
+                <th scope="col">Número de Oferta</th>
+                <th scope="col">Categoría</th>
+                <th scope="col">Nombre de la Oferta</th>
+                <th scope="col">Salario</th>
+                <th scope="col">Detalles</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let job of jobsList">
+                <td scope="row">{{ job.numberJobOffert }}</td>
+                <td>{{ job.category }}</td>
+                <td>{{ job.nameOfJobOffert }}</td>
+                <td>{{ "Q." + job.salary }}</td>
+                <td><a href="javascript:void(0)" (click)="showModalViewJobOffert(job.numberJobOffert)">Ver detalles</a>
+                </td>
+                <td><button class="btn btn-danger" (click)="deleteJobOffert(job.numberJobOffert)">Eliminar</button></td>
+                <td><button class="btn btn-primary" (click)="showModalJobOffert(job.numberJobOffert)">Editar</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+<!-- Primer Modal -->
+<div class="modal fade" id="createJobOffert" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Crear Nueva Oferta de Empleo</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <p *ngIf="error" class="message">No se pudo publicar la oferta de trabajo. </p>
+            </div>
+            <div class="modal-body">
+                <form class="form" [formGroup]="registerForm">
+                    <div class="mb-3">
+                        <label for="nameOfJobOffert" class="form-label">Nombre de la oferta:</label>
+                        <input
+                            [class.is-invalid]="registerForm.controls['nameOfJobOffert'].invalid && registerForm.controls['nameOfJobOffert'].touched"
+                            formControlName="nameOfJobOffert" name="nameOfJobOffert" id="nameOfJobOffert" type="text"
+                            class="form-control">
+                        <span
+                            *ngIf="registerForm.controls['nameOfJobOffert'].invalid && (registerForm.controls['nameOfJobOffert'].dirty || registerForm.controls['nameOfJobOffert'].touched)"
+                            class="text-danger">Verifique el nombre de la oferta.</span>
+                    </div>
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Descripcion:</label>
+                        <textarea
+                            [class.is-invalid]="registerForm.controls['description'].invalid && registerForm.controls['description'].touched"
+                            formControlName="description" name="description" id="description"
+                            class="form-control"></textarea>
+                        <span
+                            *ngIf="registerForm.controls['description'].invalid && (registerForm.controls['description'].dirty || registerForm.controls['description'].touched)"
+                            class="text-danger">Verifique la descripcion de la oferta.</span>
+                    </div>
+                    <div class="mb-3">
+                        <label for="location" class="form-label">Localidad:</label>
+                        <input
+                            [class.is-invalid]="registerForm.controls['location'].invalid && registerForm.controls['location'].touched"
+                            formControlName="location" name="location" id="location" type="text" class="form-control">
+                        <span
+                            *ngIf="registerForm.controls['location'].invalid && (registerForm.controls['location'].dirty || registerForm.controls['location'].touched)"
+                            class="text-danger">Verifique la localidad.</span>
+                    </div>
+                    <div class="mb-3">
+                        <label for="details" class="form-label">Detalles:</label>
+                        <textarea
+                            [class.is-invalid]="registerForm.controls['details'].invalid && registerForm.controls['details'].touched"
+                            formControlName="details" name="details" id="details" class="form-control"></textarea>
+                        <span
+                            *ngIf="registerForm.controls['details'].invalid && (registerForm.controls['details'].dirty || registerForm.controls['details'].touched)"
+                            class="text-danger">Llene los detalles de la oferta.</span>
+                    </div>
+                    <div class="mb-3">
+                        <label for="publicationDate" class="form-label">Fecha de publicacion:</label>
+                        <input
+                            [class.is-invalid]="registerForm.controls['publicationDate'].invalid && registerForm.controls['publicationDate'].touched"
+                            formControlName="publicationDate" name="publicationDate" id="publicationDate"
+                            class="form-control" type="date" required="">
+                        <span
+                            *ngIf="registerForm.controls['publicationDate'].invalid && (registerForm.controls['publicationDate'].dirty || registerForm.controls['publicationDate'].touched)"
+                            class="text-danger">Verifique la fecha de publicacion.</span>
+                    </div>
+                    <div class="mb-3">
+                        <label for="applicationDeadLine" class="form-label">Fecha ultima de applicantes:</label>
+                        <input
+                            [class.is-invalid]="registerForm.controls['applicationDeadline'].invalid && registerForm.controls['applicationDeadline'].touched"
+                            formControlName="applicationDeadline" name="applicationDeadline" id="applicationDeadline"
+                            class="form-control" type="date" required="">
+                        <span
+                            *ngIf="registerForm.controls['applicationDeadline'].invalid && (registerForm.controls['applicationDeadline'].dirty || registerForm.controls['applicationDeadline'].touched)"
+                            class="text-danger">Verifique la fecha de vencimiento de la publicacion.</span>
+                    </div>
+                    <div class="mb-3">
+                        <label for="salary" class="form-label">Salario:</label>
+                        <input
+                            [class.is-invalid]="registerForm.controls['salary'].invalid && registerForm.controls['salary'].touched"
+                            formControlName="salary" name="salary" id="salary" type="text" class="form-control">
+                        <span
+                            *ngIf="registerForm.controls['salary'].invalid && (registerForm.controls['salary'].dirty || registerForm.controls['salary'].touched)"
+                            class="text-danger">El salario esta mal.</span>
+                    </div>
+                    <div class="mb-3">
+                        <label for="modality" class="form-label">Modalidad:</label>
+                        <select
+                            [class.is-invalid]="registerForm.controls['modality'].invalid && registerForm.controls['modality'].touched"
+                            formControlName="modality" name="modality" id="modality" class="form-control" required="">
+                            <option value="presencial">Presencial</option>
+                            <option value="remoto">Remoto</option>
+                            <option value="hibrido">Híbrido</option>
+                        </select>
+                        <span
+                            *ngIf="registerForm.controls['modality'].invalid && (registerForm.controls['modality'].dirty || registerForm.controls['modality'].touched)"
+                            class="text-danger">Por favor seleccione la modalidad de trabajo.</span>
+                    </div>
+                    <div class="mb-3">
+                        <label for="categorySelect" class="form-label">Categoría:</label>
+                        <select
+                            [class.is-invalid]="registerForm.controls['numberCategorie'].invalid && registerForm.controls['numberCategorie'].touched"
+                            formControlName="numberCategorie" name="numberCategorie" id="numberCategorie"
+                            class="form-control" required="">
+                            <option *ngFor="let category of categoryList" value="{{category.numberCategory}}">
+                                {{ category.nameCategory }}
+                            </option>
+                        </select>
+                        <span
+                            *ngIf="registerForm.controls['numberCategorie'].invalid && (registerForm.controls['numberCategorie'].dirty || registerForm.controls['numberCategorie'].touched)"
+                            class="text-danger">Por favor seleccione una categoria.</span>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" (click)="createJobOffert()">Crear</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Segundo Modal-->
+<div class="modal fade" id="editJobOffert" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Editar oferta de Empleo</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <p *ngIf="error" class="message">No se pudo actualizar la oferta de empleo. </p>
+            </div>
+            <div class="modal-body">
+                <form class="form" [formGroup]="editerForm">
+                    <div class="mb-3">
+                        <label for="nameOfJobOffert" class="form-label">Nombre de la oferta:</label>
+                        <input
+                            [class.is-invalid]="registerForm.controls['nameOfJobOffert'].invalid && registerForm.controls['nameOfJobOffert'].touched"
+                            formControlName="nameOfJobOffert" name="nameOfJobOffert" id="nameOfJobOffert" type="text"
+                            class="form-control" [value]="updateJob.nameOfJobOffert">
+                        <span
+                            *ngIf="registerForm.controls['nameOfJobOffert'].invalid && (registerForm.controls['nameOfJobOffert'].dirty || registerForm.controls['nameOfJobOffert'].touched)"
+                            class="text-danger">Verifique el nombre de la oferta.</span>
+                    </div>
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Descripcion:</label>
+                        <textarea
+                            [class.is-invalid]="registerForm.controls['description'].invalid && registerForm.controls['description'].touched"
+                            formControlName="description" name="description" id="description"
+                            class="form-control"></textarea>
+                        <span
+                            *ngIf="registerForm.controls['description'].invalid && (registerForm.controls['description'].dirty || registerForm.controls['description'].touched)"
+                            class="text-danger">Verifique la descripcion de la oferta.</span>
+                    </div>
+                    <div class="mb-3">
+                        <label for="location" class="form-label">Localidad:</label>
+                        <input
+                            [class.is-invalid]="registerForm.controls['location'].invalid && registerForm.controls['location'].touched"
+                            formControlName="location" name="location" id="location" type="text" class="form-control">
+                        <span
+                            *ngIf="registerForm.controls['location'].invalid && (registerForm.controls['location'].dirty || registerForm.controls['location'].touched)"
+                            class="text-danger">Verifique la localidad.</span>
+                    </div>
+                    <div class="mb-3">
+                        <label for="details" class="form-label">Detalles:</label>
+                        <textarea
+                            [class.is-invalid]="registerForm.controls['details'].invalid && registerForm.controls['details'].touched"
+                            formControlName="details" name="details" id="details" class="form-control"></textarea>
+                        <span
+                            *ngIf="registerForm.controls['details'].invalid && (registerForm.controls['details'].dirty || registerForm.controls['details'].touched)"
+                            class="text-danger">Llene los detalles de la oferta.</span>
+                    </div>
+                    <div class="mb-3">
+                        <label for="publicationDate" class="form-label">Fecha de publicacion:</label>
+                        <input
+                            [class.is-invalid]="registerForm.controls['publicationDate'].invalid && registerForm.controls['publicationDate'].touched"
+                            formControlName="publicationDate" name="publicationDate" id="publicationDate"
+                            class="form-control" type="date" required="">
+                        <span
+                            *ngIf="registerForm.controls['publicationDate'].invalid && (registerForm.controls['publicationDate'].dirty || registerForm.controls['publicationDate'].touched)"
+                            class="text-danger">Verifique la fecha de publicacion.</span>
+                    </div>
+                    <div class="mb-3">
+                        <label for="applicationDeadLine" class="form-label">Fecha ultima de applicantes:</label>
+                        <input
+                            [class.is-invalid]="registerForm.controls['applicationDeadline'].invalid && registerForm.controls['applicationDeadline'].touched"
+                            formControlName="applicationDeadline" name="applicationDeadline" id="applicationDeadline"
+                            class="form-control" type="date" required="">
+                        <span
+                            *ngIf="registerForm.controls['applicationDeadline'].invalid && (registerForm.controls['applicationDeadline'].dirty || registerForm.controls['applicationDeadline'].touched)"
+                            class="text-danger">Verifique la fecha de vencimiento de la publicacion.</span>
+                    </div>
+                    <div class="mb-3">
+                        <label for="salary" class="form-label">Salario:</label>
+                        <input
+                            [class.is-invalid]="registerForm.controls['salary'].invalid && registerForm.controls['salary'].touched"
+                            formControlName="salary" name="salary" id="salary" type="text" class="form-control">
+                        <span
+                            *ngIf="registerForm.controls['salary'].invalid && (registerForm.controls['salary'].dirty || registerForm.controls['salary'].touched)"
+                            class="text-danger">El salario esta mal.</span>
+                    </div>
+                    <div class="mb-3">
+                        <label for="modality" class="form-label">Modalidad:</label>
+                        <select
+                            [class.is-invalid]="registerForm.controls['modality'].invalid && registerForm.controls['modality'].touched"
+                            formControlName="modality" name="modality" id="modality" class="form-control" required="">
+                            <option value="presencial">Presencial</option>
+                            <option value="remoto">Remoto</option>
+                            <option value="hibrido">Híbrido</option>
+                        </select>
+                        <span
+                            *ngIf="registerForm.controls['modality'].invalid && (registerForm.controls['modality'].dirty || registerForm.controls['modality'].touched)"
+                            class="text-danger">Por favor seleccione la modalidad de trabajo.</span>
+                    </div>
+                    <div class="mb-3">
+                        <label for="categorySelect" class="form-label">Categoría:</label>
+                        <select
+                            [class.is-invalid]="registerForm.controls['numberCategorie'].invalid && registerForm.controls['numberCategorie'].touched"
+                            formControlName="numberCategorie" name="numberCategorie" id="numberCategorie"
+                            class="form-control" required="">
+                            <option *ngFor="let category of categoryList" value="{{category.numberCategory}}">
+                                {{ category.nameCategory }}
+                            </option>
+                        </select>
+                        <span
+                            *ngIf="registerForm.controls['numberCategorie'].invalid && (registerForm.controls['numberCategorie'].dirty || registerForm.controls['numberCategorie'].touched)"
+                            class="text-danger">Por favor seleccione una categoria.</span>
+                    </div>
+                </form>
+            </div>
+            <div *ngIf="editSuccesfull">
+                <div class="alert alert-success" role="alert">
+                    Oferta de empleo actualizada exitosamente.
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="closeUpdate()">Cerrar</button>
+                <div *ngIf="!editSuccesfull">
+                    <button type="button" class="btn btn-primary" (click)="editerJobOffert()">Actualizar</button>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+<!-- Tercer Modal -->
+<div class="modal fade" id="viewJobOffert" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Ver Oferta de Empleo</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <p *ngIf="error" class="message">No se pudo actualizar la oferta de empleo. </p>
+            </div>
+            <div class="modal-body">
+                <form class="form" [formGroup]="editerForm">
+                    <div class="mb-3">
+                        <label for="nameOfJobOffert" class="form-label">Nombre de la oferta:</label>
+                        <input formControlName="nameOfJobOffert" name="nameOfJobOffert" id="nameOfJobOffert" type="text"
+                            class="form-control" readonly>
+                    </div>
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Descripcion:</label>
+                        <textarea formControlName="description" name="description" id="description" class="form-control"
+                            readonly></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="location" class="form-label">Localidad:</label>
+                        <input formControlName="location" name="location" id="location" type="text" class="form-control"
+                            readonly>
+                    </div>
+                    <div class="mb-3">
+                        <label  for="details" class="form-label">Detalles:</label>
+                        <textarea formControlName="details" name="details" id="details" class="form-control" readonly></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="publicationDate" class="form-label">Fecha de publicacion:</label>
+                        <input formControlName="publicationDate" name="publicationDate" id="publicationDate"
+                            class="form-control" type="date" required="" readonly>
+                    </div>
+                    <div class="mb-3">
+                        <label for="applicationDeadLine" class="form-label">Fecha ultima de applicantes:</label>
+                        <input formControlName="applicationDeadline" name="applicationDeadline" id="applicationDeadline"
+                            class="form-control" type="date" required="" readonly>
+                    </div>
+                    <div class="mb-3">
+                        <label for="salary" class="form-label">Salario:</label>
+                        <input formControlName="salary" name="salary" id="salary" type="text" class="form-control"
+                            readonly>
+                    </div>
+                    <div class="mb-3">
+                        <label for="modality" class="form-label">Modalidad:</label>
+                        <input formControlName="modality" name="modality" id="modality" type="text" class="form-control"
+                        readonly>                       
+                    </div>
+                    <div class="mb-3">
+                        <label for="categorySelect" class="form-label">Categoría:</label>
+                        <input formControlName="numberCategorie" name="numberCategorie" id="numberCategorie" type="text" class="form-control"
+                        readonly>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>

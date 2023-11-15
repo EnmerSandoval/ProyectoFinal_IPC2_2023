@@ -38,6 +38,7 @@ export class UploadCvComponent {
     let files = (event.target as HTMLInputElement).files;
     if (files != null) {
       this.selectedFile = files[0];
+      this.router.navigate(['/select-categories']);
     }
   }
 

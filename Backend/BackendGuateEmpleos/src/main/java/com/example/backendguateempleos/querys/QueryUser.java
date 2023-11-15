@@ -28,7 +28,6 @@ public class QueryUser {
             preparedStatement.setString(2, password);
             try (var resultSet = preparedStatement.executeQuery()){
                 while (resultSet.next()){
-                    System.out.println("Ando aca en la query: " + resultSet.getString("password"));
                     return Optional.ofNullable(userSelect(username));
                 }
             }

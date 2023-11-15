@@ -23,7 +23,11 @@ import { UploadCvComponent } from './components/Applicant/upload-cv/upload-cv.co
 import { ApplicantAuthGuard } from './guard/ApplicantAuthGuard';
 import { EmployerAuthGuard } from './guard/EmployerAuthGuard';
 import { HomeEmployerComponent } from './components/Employer/home-employer/home-employer.component';
-
+import { BidManagementComponent } from './components/Employer/bid-management/bid-management.component';
+import { DatePipe } from '@angular/common';
+import { SelectCategoriesComponent } from './components/Applicant/select-categories/select-categories.component';
+import { HomeApplicantComponent } from './components/Applicant/home-applicant/home-applicant.component';
+import { PostulationModalComponent } from './components/Applicant/postulation-modal/postulation-modal.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +46,10 @@ import { HomeEmployerComponent } from './components/Employer/home-employer/home-
     CategorysComponent,
     UploadCvComponent,
     HomeEmployerComponent,
+    BidManagementComponent,
+    SelectCategoriesComponent,
+    HomeApplicantComponent,
+    PostulationModalComponent,
   ],
   imports: [
     BrowserModule,
@@ -50,7 +58,7 @@ import { HomeEmployerComponent } from './components/Employer/home-employer/home-
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [AuthService, AdminAuthGuard, ApplicantAuthGuard, EmployerAuthGuard],
+  providers: [AuthService, AdminAuthGuard, ApplicantAuthGuard, EmployerAuthGuard, DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

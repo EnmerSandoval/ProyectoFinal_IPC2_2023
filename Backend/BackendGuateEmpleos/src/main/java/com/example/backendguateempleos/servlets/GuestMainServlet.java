@@ -61,7 +61,24 @@ public class GuestMainServlet extends HttpServlet {
             } else {
                 resp.setStatus(HttpServletResponse.SC_NOT_ACCEPTABLE);
             }
-        } else {
+        } else if(flag != null && flag.equals("4")){
+            int cui = Integer.parseInt(req.getParameter("employerCui"));
+            List<Job> jobs = new ArrayList<>();
+            jobs = queryJob.publishedWorksByCui(cui);
+            if(jobs != null || jobs.isEmpty()){
+                auxiliary.sendList(resp, jobs);
+                resp.setStatus(HttpServletResponse.SC_OK);
+            } else {
+                resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            }
+        } else if( flag != null && flag.equals("5")){
+            int numberJobOffert  = Integer.parseInt(req.getParameter("numberJobOffert"));
+            if (queryJob.updateStateJob(numberJobOffert)){
+                resp.setStatus(HttpServletResponse.SC_OK);
+            } else {
+                resp.setStatus(HttpServletResponse.SC_NOT_ACCEPTABLE);
+            }
+        }else {
             resp.setStatus(HttpServletResponse.SC_NOT_MODIFIED);
         }
     }
