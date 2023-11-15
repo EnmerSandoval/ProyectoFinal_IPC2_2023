@@ -8,9 +8,9 @@
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 <li class="nav-item">Entrevistas</li>
                 <li class="nav-item">
-                    <a class="nav-link" >Postulaciones</a>
+                    <a class="nav-link">Postulaciones</a>
                 </li>
-                <li class="nav-item" >Edicion de Perfil</li>
+                <li class="nav-item">Edicion de Perfil</li>
                 <li class="nav-item">
                     <a class="nav-link" routerLink="/main-house">Ver Ofertas</a>
                 </li>
@@ -21,7 +21,7 @@
         </div>
     </div>
 </nav>
-<div class="container" >
+<div class="container">
     <h2>Ofertas Sugeridas</h2>
     <div class="table-responsive">
         <table class="table">
@@ -46,7 +46,8 @@
                     <td>{{ "Q." + job.salary }}</td>
                     <td><a href="javascript:void(0)" (click)="showModalJobOffert(job.numberJobOffert)">Ver detalles</a>
                     </td>
-                    <td><button class="btn btn-primary" (click)="showModalPostulation(job.numberJobOffert)">Postularme</button></td>
+                    <td><button class="btn btn-primary"
+                            (click)="showModalPostulation(job.numberJobOffert)">Postularme</button></td>
                 </tr>
             </tbody>
         </table>
@@ -113,27 +114,58 @@
                         <h5 class="card-headre">Empresa: </h5>
                         <h5 class="card-headre"><b>{{jobOffert.nameEmployer}}</b></h5>
                         <div class="card-body">
-                          
-                          <span>
-                            <h5 class=""><b>Se solicita: </b></h5>
-                            <h5 class="">{{jobOffert.nameOfJobOffert}}</h5>
-                          </span>
-                          <h5 class=""><b>Descripcion: </b></h5>
-                          <textarea class="">{{jobOffert.description}}</textarea>
-                          <h5 class=""><b>Categoria: </b></h5>
-                          <h5 class="">{{jobOffert.category}}</h5>
-                          <h5 class=""><b>Localidad: </b></h5>
-                          <p class="">{{jobOffert.location}}</p>
-                          <h5 class=""><b>Salario: </b></h5>
-                          <p class="">{{"Q." + jobOffert.salary}}</p>
-                          <h5 class=""><b>Modalidad: </b></h5>
-                          <p class="">{{jobOffert.modality}}</p>
+
+                            <span>
+                                <h5 class=""><b>Se solicita: </b></h5>
+                                <h5 class="">{{jobOffert.nameOfJobOffert}}</h5>
+                            </span>
+                            <h5 class=""><b>Descripcion: </b></h5>
+                            <textarea class="">{{jobOffert.description}}</textarea>
+                            <h5 class=""><b>Categoria: </b></h5>
+                            <h5 class="">{{jobOffert.category}}</h5>
+                            <h5 class=""><b>Localidad: </b></h5>
+                            <p class="">{{jobOffert.location}}</p>
+                            <h5 class=""><b>Salario: </b></h5>
+                            <p class="">{{"Q." + jobOffert.salary}}</p>
+                            <h5 class=""><b>Modalidad: </b></h5>
+                            <p class="">{{jobOffert.modality}}</p>
                         </div>
-                      </div>
-                      <h5></h5>
+                    </div>
+                    <h5></h5>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" (click)="hideModal()">Cerrar</button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="modal fade" id="postulationModal" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Postularme</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="flex flex-col bg-white rounded-3xl">
+                        <div class="card">
+                            <form>
+                                <div class="form-group">
+                                    <label for="nameOutput"><b>Motivo para contratarte: </b></label>
+                                    <textarea [(ngModel)]="postulationReason" type="text" class="form-control"
+                                    id="nameOutput" name="nameOutput" ></textarea>
+                                    
+                                </div>
+                            </form>
+                        </div>
+                        <h5></h5>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn btn-primary"  (click)="submitPostulation()">Enviar</button>
+                    </div>
                 </div>
             </div>
         </div>

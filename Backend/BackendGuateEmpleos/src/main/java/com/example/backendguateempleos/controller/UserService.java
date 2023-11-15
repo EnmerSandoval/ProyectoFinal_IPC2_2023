@@ -1,5 +1,6 @@
 package com.example.backendguateempleos.controller;
 
+import com.example.backendguateempleos.model.LoadEmployer;
 import com.example.backendguateempleos.model.User;
 import com.example.backendguateempleos.querys.QueryUser;
 
@@ -36,5 +37,9 @@ public class UserService {
 
     public List<User> applicants(){
         return queryUser.usersForTypes(3);
+    }
+
+    public boolean insertEmployer(LoadEmployer loadEmployer){
+        return queryUser.insertLoadEmployer(loadEmployer);
     }
 }

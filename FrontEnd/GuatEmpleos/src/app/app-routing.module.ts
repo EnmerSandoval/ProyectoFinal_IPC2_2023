@@ -20,11 +20,12 @@ import { HomeEmployerComponent } from './components/Employer/home-employer/home-
 import { BidManagementComponent } from './components/Employer/bid-management/bid-management.component';
 import { SelectCategoriesComponent } from './components/Applicant/select-categories/select-categories.component';
 import { HomeApplicantComponent } from './components/Applicant/home-applicant/home-applicant.component';
-import { PostulationModalComponent } from './components/Applicant/postulation-modal/postulation-modal.component';
+import { FileUploadComponent } from './components/file-upload/file-upload.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/main-house', pathMatch: 'full' },
   { path: 'main-house', component: MainHouseComponent },
+  { path: 'file-upload', component: FileUploadComponent },
   { path: 'unauthorized', component: UnauthorizedComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register-user', component: RegisterUserComponent },
@@ -41,7 +42,6 @@ const routes: Routes = [
   { path: 'employer/bid-management', component: BidManagementComponent, canActivate: [EmployerAuthGuard]},
   { path: 'select-categories', component: SelectCategoriesComponent, canActivate: [ApplicantAuthGuard]},
   { path: 'home-applicant', component: HomeApplicantComponent, canActivate: [ApplicantAuthGuard]},
-  { path: 'postulation-modal', component: PostulationModalComponent, canActivate: [ApplicantAuthGuard]},
 ];
 
 @NgModule({

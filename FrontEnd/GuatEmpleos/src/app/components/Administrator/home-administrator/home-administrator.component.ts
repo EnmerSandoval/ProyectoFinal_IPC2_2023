@@ -44,10 +44,11 @@ export class HomeAdministratorComponent {
     (window as any).$('#editCommission').modal('show');
   }
 
-  updateCommission(commission : Commission){
+  updateCommission(commission : Commission, commissionBefore : number){
     this.newCommission = { ...commission};
-    this.newCommission.beforeAmount = commission.amount;
-    this.administratorService.updateCommission(commission).subscribe({
+    console.log(commissionBefore);
+    this.newCommission.beforeAmount = commissionBefore;
+    this.administratorService.updateCommission(this.newCommission).subscribe({
     });
     this.newCommission.amount = 0;
     (window as any).$('#editCommission').modal('hide');

@@ -6,8 +6,6 @@ import { JobService } from 'src/app/services/job.service';
 import { Job } from 'src/app/model/Job';
 import { Employer } from 'src/app/model/Employer';
 import { GuestService } from 'src/app/services/guest.service';
-import { PostulationModalComponent } from '../postulation-modal/postulation-modal.component';
-import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-home-applicant',
@@ -15,7 +13,6 @@ import { Subject } from 'rxjs';
   styleUrls: ['./home-applicant.component.css']
 })
 export class HomeApplicantComponent {
-  private postulationDataSubject = new Subject<any>();
   jobsList: Job[] = [];
   jobOffert! : Job;
   employer! : Employer;
@@ -23,7 +20,8 @@ export class HomeApplicantComponent {
   errorSelectedJobOffert : boolean = false;
   user! : User;
   suggestionOffert : boolean = false;
-  @ViewChild(PostulationModalComponent) postulationModalComponent!: PostulationModalComponent;
+  postulationReason! : string;
+  jobOffertNumber! : number;
  
   constructor(private router: Router, private applicantService: ApplicantService, private jobService: JobService, private guestService : GuestService) { 
     this.employer = new Employer();
@@ -43,12 +41,19 @@ export class HomeApplicantComponent {
   });
   }
 
-
-  showModalPostulation(numberJobOffert: number) {
+  submitPostulation(){
     this.cuiUser();
-    this.postulationModalComponent.cuiApplicant = this.user.cui;
-    this.postulationModalComponent.jobOffertNumber = numberJobOffert;
-    this.postulationModalComponent.showModal();
+    console.log(this.user.cui);
+    console.log(this.jobOffertNumber);
+    if (this.postulationReason.trim() === '') {
+      alert('Razon de postulacion vacia');
+      return;
+    } else{ 
+        this.applicantService.insertRequest(this.user.cui, this.jobOffertNumber, this.postulationReason).subscribe({ 
+          
+        });
+        this.ngOnInit();
+    }
   }
 
 
@@ -60,6 +65,11 @@ export class HomeApplicantComponent {
       }
     });
     (window as any).$('#viewEmployer').modal('show');
+  }
+
+  showModalPostulation(numberJobOffert: number){
+    this.jobOffertNumber = numberJobOffert;
+    (window as any).$('#postulationModal').modal('show');
   }
 
   showModalJobOffert(numberJobOffert : number){
@@ -77,11 +87,6 @@ export class HomeApplicantComponent {
       this.errorSelectedJobOffert = true;
       console.log("Error: numberJobOffert is undefined or less than 1");
     }
-  }
-
-  hideModal(){
-    (window as any).$('#viewJobOffert').modal('hide');
-    this.ngOnInit();
   }
 
   cuiUser() {

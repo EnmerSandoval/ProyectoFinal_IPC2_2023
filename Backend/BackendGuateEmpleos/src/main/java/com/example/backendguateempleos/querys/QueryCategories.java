@@ -84,6 +84,20 @@ public class QueryCategories {
         return false;
     }
 
+    public boolean insertNewCategory(Category category){
+        String query = "INSERT INTO categories(numberCategory, nameCategory, description) VALUES ( ?, ?, ?)";
+        try (var preparedStatement = connection.prepareStatement(query)){
+            preparedStatement.setInt(1, category.getNumberCategory());
+            preparedStatement.setString(2, category.getNameCategory());
+            preparedStatement.setString(3, category.getDescription());
+            preparedStatement.executeUpdate();
+            return true;
+        } catch (SQLException e){
+            System.out.println("Error in insert Category: " + e);
+        }
+        return false;
+    }
+
     public int maxCategory(){
         String query = "SELECT MAX(numberCategory) AS maxNumberCategory FROM categories";
         int numero = 0;

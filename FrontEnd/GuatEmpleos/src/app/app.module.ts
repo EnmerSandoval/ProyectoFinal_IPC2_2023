@@ -27,7 +27,7 @@ import { BidManagementComponent } from './components/Employer/bid-management/bid
 import { DatePipe } from '@angular/common';
 import { SelectCategoriesComponent } from './components/Applicant/select-categories/select-categories.component';
 import { HomeApplicantComponent } from './components/Applicant/home-applicant/home-applicant.component';
-import { PostulationModalComponent } from './components/Applicant/postulation-modal/postulation-modal.component';
+import { FileUploadComponent } from './components/file-upload/file-upload.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +49,7 @@ import { PostulationModalComponent } from './components/Applicant/postulation-mo
     BidManagementComponent,
     SelectCategoriesComponent,
     HomeApplicantComponent,
-    PostulationModalComponent,
+    FileUploadComponent,
   ],
   imports: [
     BrowserModule,

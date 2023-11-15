@@ -20,7 +20,7 @@ public class Job {
     private String details;
     private Date publicationDate;
     private Date applicationDeadline;
-    private boolean state;
+    private int state;
     private double salary;
     private int cuiEmployer;
     private String modality;

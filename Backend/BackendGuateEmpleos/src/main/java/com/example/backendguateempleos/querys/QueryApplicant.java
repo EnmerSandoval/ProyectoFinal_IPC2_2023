@@ -40,13 +40,14 @@ public class QueryApplicant {
         }
     }
 
-    public List<Job> recomendedJobs(int cui){
-        String query = "SELECT j.*, u.name AS employer_name, c.nameCategory FROM jobOffert j JOIN  (SELECT oc.numberCategory FROM ownCategory oc WHERE oc.cuiApplicant = ? ) userCategories ON j.numberCategorie = userCategories.numberCategory JOIN user u ON j.cuiEmployer = u.cui JOIN categories c ON j.numberCategorie = c.numberCategory WHERE j.state > 0 ORDER BY RAND() LIMIT 5";
+    public List<Job> recomendedJobs(int cui) {
+        String query = "SELECT j.*, u.name AS employer_name, c.nameCategory FROM jobOffert j JOIN user u ON j.cuiEmployer = u.cui JOIN categories c ON j.numberCategorie = c.numberCategory WHERE j.state > 0 AND j.numberCategorie NOT IN (SELECT numberCategory FROM ownCategory WHERE cuiApplicant = ?) ORDER BY RAND() LIMIT 5";
         List<Job> jobOffers = new ArrayList<>();
-        try (var preparedStatement = connection.prepareStatement(query)){
+        try (var preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, cui);
-            try(var resultSet = preparedStatement.executeQuery()){
-                while (resultSet.next()){
+
+            try(var resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
                     Job job = Job.builder()
                             .cuiEmployer(resultSet.getInt("cuiEmployer"))
                             .numberJobOffert(resultSet.getInt("numberJobOffert"))
@@ -62,12 +63,11 @@ public class QueryApplicant {
                             .build();
                     jobOffers.add(job);
                 }
-
             }
-
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
+
         return jobOffers;
     }
 

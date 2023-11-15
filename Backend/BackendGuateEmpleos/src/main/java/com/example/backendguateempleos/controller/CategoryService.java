@@ -16,6 +16,10 @@ public class CategoryService {
         return queryCategories.insertCategory(category);
     }
 
+    public boolean insertNewCategoryData(Category category){
+        return queryCategories.insertNewCategory(category);
+    }
+
     public boolean updateCategory(Category category){
         return queryCategories.updateCategory(category);
     }
