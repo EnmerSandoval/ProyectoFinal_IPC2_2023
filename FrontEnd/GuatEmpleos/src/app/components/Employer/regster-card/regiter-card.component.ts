@@ -32,6 +32,7 @@ export class RegiterCardComponent {
       this.card.cuiEmployer = this.user.cui;
       this.employerService.registerCardEmployer(this.card).subscribe( card => {
         this.registerCard = true;
+        this.router.navigate(['/home-employer']);
       });
   }
 

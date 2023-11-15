@@ -13,10 +13,19 @@ import { HomeAdministratorComponent } from './components/Administrator/home-admi
 import { UnauthorizedComponent } from './components/Errors/unauthorized/unauthorized.component';
 import { AdminAuthGuard } from './guard/AdminAuthGuard';
 import { CategorysComponent } from './components/Administrator/categorys/categorys.component';
+import { ApplicantAuthGuard } from './guard/ApplicantAuthGuard';
+import { UploadCvComponent } from './components/Applicant/upload-cv/upload-cv.component';
+import { EmployerAuthGuard } from './guard/EmployerAuthGuard';
+import { HomeEmployerComponent } from './components/Employer/home-employer/home-employer.component';
+import { BidManagementComponent } from './components/Employer/bid-management/bid-management.component';
+import { SelectCategoriesComponent } from './components/Applicant/select-categories/select-categories.component';
+import { HomeApplicantComponent } from './components/Applicant/home-applicant/home-applicant.component';
+import { FileUploadComponent } from './components/file-upload/file-upload.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/main-house', pathMatch: 'full' },
   { path: 'main-house', component: MainHouseComponent },
+  { path: 'file-upload', component: FileUploadComponent },
   { path: 'unauthorized', component: UnauthorizedComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register-user', component: RegisterUserComponent },
@@ -26,12 +35,13 @@ const routes: Routes = [
   { path: 'home-guest', component: HomeGuestComponent,  },
   { path: 'home-administrator',component: HomeAdministratorComponent,canActivate: [AdminAuthGuard]},
   { path: 'categorys', component: CategorysComponent, canActivate: [AdminAuthGuard] },
-
-
-  { path: 'employer/description', component: DescriptionEmployerComponent },
-  { path: 'employer/regiterCard', component: RegiterCardComponent },
-
-
+  { path: 'employer/description', component: DescriptionEmployerComponent, canActivate: [EmployerAuthGuard] },
+  { path: 'employer/regiterCard', component: RegiterCardComponent, canActivate: [EmployerAuthGuard]},
+  { path: 'home-employer', component: HomeEmployerComponent, canActivate: [EmployerAuthGuard]},
+  { path: 'applicant/upload-cv', component: UploadCvComponent, canActivate: [ApplicantAuthGuard]},
+  { path: 'employer/bid-management', component: BidManagementComponent, canActivate: [EmployerAuthGuard]},
+  { path: 'select-categories', component: SelectCategoriesComponent, canActivate: [ApplicantAuthGuard]},
+  { path: 'home-applicant', component: HomeApplicantComponent, canActivate: [ApplicantAuthGuard]},
 ];
 
 @NgModule({

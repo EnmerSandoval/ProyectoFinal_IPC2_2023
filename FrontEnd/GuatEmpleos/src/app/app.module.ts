@@ -19,6 +19,15 @@ import { AdminAuthGuard } from './guard/AdminAuthGuard';
 import { AuthService } from './services/AuthService';
 import { UnauthorizedComponent } from './components/Errors/unauthorized/unauthorized.component';
 import { CategorysComponent } from './components/Administrator/categorys/categorys.component';
+import { UploadCvComponent } from './components/Applicant/upload-cv/upload-cv.component';
+import { ApplicantAuthGuard } from './guard/ApplicantAuthGuard';
+import { EmployerAuthGuard } from './guard/EmployerAuthGuard';
+import { HomeEmployerComponent } from './components/Employer/home-employer/home-employer.component';
+import { BidManagementComponent } from './components/Employer/bid-management/bid-management.component';
+import { DatePipe } from '@angular/common';
+import { SelectCategoriesComponent } from './components/Applicant/select-categories/select-categories.component';
+import { HomeApplicantComponent } from './components/Applicant/home-applicant/home-applicant.component';
+import { FileUploadComponent } from './components/file-upload/file-upload.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +44,12 @@ import { CategorysComponent } from './components/Administrator/categorys/categor
     HomeAdministratorComponent,
     UnauthorizedComponent,
     CategorysComponent,
+    UploadCvComponent,
+    HomeEmployerComponent,
+    BidManagementComponent,
+    SelectCategoriesComponent,
+    HomeApplicantComponent,
+    FileUploadComponent,
   ],
   imports: [
     BrowserModule,
@@ -43,7 +58,7 @@ import { CategorysComponent } from './components/Administrator/categorys/categor
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [AuthService, AdminAuthGuard],
+  providers: [AuthService, AdminAuthGuard, ApplicantAuthGuard, EmployerAuthGuard, DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

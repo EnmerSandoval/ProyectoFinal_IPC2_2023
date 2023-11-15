@@ -1,0 +1,56 @@
+<div class="container">
+    <br>
+    <div class="row">
+        <div class="col-md-6">
+            <h2>Mis categorias</h2>
+            <div class="table-container" style="max-height: 500px; overflow: auto;">
+                <table class="table" style="max-height: 100px; overflow: auto;">
+                    <thead class="table-dark">
+                        <tr>
+                            <th scope="col">CODIGO</th>
+                            <th scope="col">NOMBRE</th>
+                            <th scope="col">DESCRIPCION</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let category of newCategoriesList">
+                            <td scope="row">{{category.numberCategory}}</td>
+                            <td>{{category.nameCategory}}</td>
+                            <td>{{category.description}}</td>
+                            <td><button class="btn btn-danger" (click)="deleteNewCategory(category)">Eliminar</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <h2>categorias</h2>
+            <div class="input-group mb-3">
+                <br>
+                <div class="table-container" style="max-height: 500px; overflow: auto;">
+                    <table class="table" style="max-height: 100px; overflow: auto;">
+                        <thead class="table-dark">
+                            <tr>
+                                <th scope="col">CODIGO</th>
+                                <th scope="col">NOMBRE</th>
+                                <th scope="col">DESCRIPCION</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let category of categoryList">
+                                <td scope="row">{{category.numberCategory}}</td>
+                                <td>{{category.nameCategory}}</td>
+                                <td>{{category.description}}</td>
+                                <td><button class="btn btn-primary" (click)="addNewCategory(category)" [disabled]="category.disabled">Agregar</button></td>
+                            </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <button class="btn btn-primary" (click)="insertOwnCategory()">Continuar</button>
+</div>

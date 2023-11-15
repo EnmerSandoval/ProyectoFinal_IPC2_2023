@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class UserService {
-  private url: string = 'http://localhost:8080/BackendGuateEmpleos_war_exploded';
+  readonly url: string = 'http://localhost:8080/BackendGuateEmpleos_war_exploded';
 
   constructor(private http: HttpClient) { }
   logIn(user : User) {

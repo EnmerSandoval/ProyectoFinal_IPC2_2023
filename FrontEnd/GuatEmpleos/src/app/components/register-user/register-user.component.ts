@@ -21,7 +21,7 @@ export class RegisterUserComponent {
 
   ngOnInit() {
     this.registerForm = this.formBuilder.group({
-      cui: [null, [Validators.required, Validators.minLength(13), Validators.maxLength(13)]],
+      cui: [null, [Validators.required, Validators.minLength(1), Validators.maxLength(8)]],
       name: [null, [Validators.required, Validators.maxLength(50)]],
       username: [null, [Validators.required, Validators.maxLength(75)]],
       address: [null, [Validators.required, Validators.maxLength(250)]],
@@ -52,7 +52,7 @@ export class RegisterUserComponent {
     if (this.user.typeUser == 2) {
       this.router.navigate(['/employer/description']);
     } else if (this.user.typeUser == 3) {
-      //applicant
+      this.router.navigate(['/applicant/upload-cv']);
     }
   }
 }

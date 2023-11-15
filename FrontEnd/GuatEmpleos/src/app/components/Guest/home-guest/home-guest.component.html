@@ -7,6 +7,9 @@
         <div class="collapse navbar-collapse" id="navbarExample01">
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 <li class="nav-item">
+                    <a class="nav-link" routerLink="/main-house">Menu Principal</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" routerLink="/login">Iniciar Sesion</a>
                 </li>
             </ul>
@@ -39,12 +42,13 @@
                                 <tbody>
                                     <tr *ngFor="let job of jobsList">
                                         <td scope="row">{{ job.numberJobOffert }}</td>
-                                        <td><a [href]="'enlace_empresa' + job.cuiEmployer">{{ job.nameEmployer }}</a>
-                                        </td>
+                                        <td><a href="javascript:void(0)" (click)="showModal(job.cuiEmployer)">{{
+                                                job.nameEmployer }}</a></td>
                                         <td>{{ job.category }}</td>
                                         <td>{{ job.nameOfJobOffert }}</td>
                                         <td>{{ "Q." + job.salary }}</td>
-                                        <td><a >Ver detalles</a></td>
+                                        <td><a href="javascript:void(0)" (click)="showModalJobOffert(job.numberJobOffert)">Ver detalles</a>
+                                        </td>
                                         <td><button class="btn btn-primary" routerLink="/login">Postularme</button></td>
                                     </tr>
                                 </tbody>
@@ -64,3 +68,85 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="viewEmployer" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Empleador</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="nameOutput"><b>Nombre de la empresa: </b></label>
+                        <input [(ngModel)]="showModalData.name" type="text" class="form-control" id="nameOutput"
+                            name="nameOutput" readonly>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <label for="missionOutput"><b>Mision: </b></label>
+                        <input [(ngModel)]="showModalData.mission" type="text" class="form-control" id="missionOutput"
+                            name="missionOutput" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="visionOutput"><b>Vision:</b></label>
+                        <input [(ngModel)]="showModalData.vision" type="text" class="form-control" id="visionOutput"
+                            name="visionOutput" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="emailOutput"><b>Email:</b></label>
+                        <input [(ngModel)]="showModalData.email" type="text" class="form-control" id="emailOutput"
+                            name="emailOutput" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="phoneNumberOutput"><b>phoneNumber:</b></label>
+                        <input [(ngModel)]="showModalData.phoneNumber" type="text" class="form-control"
+                            id="phoneNumberOutput" name="phoneNumberOutput" readonly>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Aceptar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="viewJobOffert" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Oferta de Empleo</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="flex flex-col bg-white rounded-3xl">
+                    <div class="card">
+                        <br>
+                        <h5 class="card-headre">Empresa: </h5>
+                        <h5 class="card-headre"><b>{{jobOffert.nameEmployer}}</b></h5>
+                        <div class="card-body">
+                          
+                          <span>
+                            <h5 class=""><b>Se solicita: </b></h5>
+                            <h5 class="">{{jobOffert.nameOfJobOffert}}</h5>
+                          </span>
+                          <h5 class=""><b>Descripcion: </b></h5>
+                          <textarea class="">{{jobOffert.description}}</textarea>
+                          <h5 class=""><b>Categoria: </b></h5>
+                          <h5 class="">{{jobOffert.category}}</h5>
+                          <h5 class=""><b>Localidad: </b></h5>
+                          <p class="">{{jobOffert.location}}</p>
+                          <h5 class=""><b>Salario: </b></h5>
+                          <p class="">{{"Q." + jobOffert.salary}}</p>
+                          <h5 class=""><b>Modalidad: </b></h5>
+                          <p class="">{{jobOffert.modality}}</p>
+                        </div>
+                      </div>
+                      <h5></h5>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" (click)="hideModal()">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>

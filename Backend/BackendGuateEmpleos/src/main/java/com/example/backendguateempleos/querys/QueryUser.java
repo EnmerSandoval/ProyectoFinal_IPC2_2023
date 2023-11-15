@@ -3,9 +3,11 @@ package com.example.backendguateempleos.querys;
 import com.example.backendguateempleos.db.ConnectionDB;
 import com.example.backendguateempleos.model.Auxiliary;
 import com.example.backendguateempleos.model.AuxiliaryMethods;
+import com.example.backendguateempleos.model.LoadEmployer;
 import com.example.backendguateempleos.model.User;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -28,14 +30,69 @@ public class QueryUser {
             preparedStatement.setString(2, password);
             try (var resultSet = preparedStatement.executeQuery()){
                 while (resultSet.next()){
-                    System.out.println("Ando aca en la query: " + resultSet.getString("password"));
                     return Optional.ofNullable(userSelect(username));
                 }
             }
         } catch (SQLException e) {
-            System.out.println("Error in login check please: " + e);
+            System.out.println("Error in Fin check please: " + e);
         }
         return Optional.empty();
+    }
+
+    public boolean insertLoadEmployer(LoadEmployer employer){
+            String userSql = "INSERT INTO user (cui, name, username, password, address, email, birthdate, typeOfUser) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+            String employerSql = "INSERT INTO employer (cuiEmployer, mission, vision) VALUES (?, ?, ?)";
+            String phoneNumbersSql = "INSERT INTO phoneNumbers (phoneNumber, cuiUser) VALUES (?, ?)";
+
+            try {
+                connection.setAutoCommit(false);
+
+                try (PreparedStatement userStatement = connection.prepareStatement(userSql)) {
+                    userStatement.setInt(1, employer.getCui());
+                    userStatement.setString(2, employer.getName());
+                    userStatement.setString(3, employer.getUsername());
+                    userStatement.setString(4, employer.getPassword());
+                    userStatement.setString(5, employer.getAddress());
+                    userStatement.setString(6, employer.getEmail());
+                    userStatement.setDate(7, employer.getBirth());
+                    userStatement.setInt(8, employer.getTypeUser());
+
+                    userStatement.executeUpdate();
+                }
+
+                try (PreparedStatement employerStatement = connection.prepareStatement(employerSql)) {
+                    employerStatement.setInt(1, employer.getCui());
+                    employerStatement.setString(2, employer.getMission());
+                    employerStatement.setString(3, employer.getVision());
+
+                    employerStatement.executeUpdate();
+                }
+
+                for (Integer phoneNumber : employer.getPhoneNumbers()) {
+                    try (PreparedStatement phoneNumbersStatement = connection.prepareStatement(phoneNumbersSql)) {
+                        phoneNumbersStatement.setInt(1, phoneNumber);
+                        phoneNumbersStatement.setInt(2, employer.getCui());
+
+                        phoneNumbersStatement.executeUpdate();
+                    }
+                }
+                connection.commit();
+                return true;
+            } catch (SQLException e) {
+                try {
+                    connection.rollback();
+                } catch (SQLException rollbackException) {
+                    rollbackException.printStackTrace();
+                }
+                e.printStackTrace();
+            } finally {
+                try {
+                    connection.setAutoCommit(true);
+                } catch (SQLException autoCommitException) {
+                    autoCommitException.printStackTrace();
+                }
+            }
+            return false;
     }
 
     public User userSelect(String username){

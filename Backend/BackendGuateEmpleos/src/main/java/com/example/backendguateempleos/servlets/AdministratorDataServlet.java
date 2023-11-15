@@ -78,8 +78,9 @@ public class AdministratorDataServlet extends HttpServlet {
             response.setStatus(HttpServletResponse.SC_OK);
         } else if(flag != null && flag.equals("7")){
             var commission = new Commission();
-            commission.setNumberCommission(Integer.parseInt(request.getParameter("numberCommission")));
+            commission.setNumberCommission(1);
             commission.setAmount(Integer.parseInt(request.getParameter("amount")));
+            commission.setBeforeAmount(Integer.parseInt(request.getParameter("beforeAmount")));
             if (dataService.updateAmountCommission(commission)){
                 commissionAuxiliary.send(response, commission);
                 response.setStatus(HttpServletResponse.SC_OK);

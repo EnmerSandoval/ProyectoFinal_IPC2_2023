@@ -9,7 +9,7 @@ import { Card } from '../model/Card';
 export class EmployerService {
 
 
-  private url: string = 'http://localhost:8080/BackendGuateEmpleos_war_exploded';
+  readonly url: string = 'http://localhost:8080/BackendGuateEmpleos_war_exploded';
 
   constructor(private http: HttpClient) { }
 
@@ -20,6 +20,7 @@ export class EmployerService {
     .set('flag', '1');
     return this.http.get(`${this.url}/employer/descriptionServlet`, {params});
   }
+  
   registerCardEmployer(card : Card) {
     const params = new HttpParams()
     .set('cuiEmployer', card.cuiEmployer)

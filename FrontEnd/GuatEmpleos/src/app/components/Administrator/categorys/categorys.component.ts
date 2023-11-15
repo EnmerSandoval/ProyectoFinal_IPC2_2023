@@ -56,6 +56,7 @@ export class CategorysComponent {
     this.category = { ...category };
     this.administratorService.selectCategory(this.category).subscribe({}
     );
+    
   }
 
   showModalEdit(category: Category) {

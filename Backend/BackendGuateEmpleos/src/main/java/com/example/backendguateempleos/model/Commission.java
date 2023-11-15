@@ -12,4 +12,5 @@ import lombok.experimental.SuperBuilder;
 public class Commission {
     private int numberCommission;
     private int amount;
+    private int beforeAmount;
 }
